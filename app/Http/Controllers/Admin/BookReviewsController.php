@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Image;
-use App\TedTalk;
-use Carbon\Carbon;
+use App\BookReview;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
-class TedTalksController extends Controller
+class BookReviewsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,7 @@ class TedTalksController extends Controller
      */
     public function index()
     {
-        $talks = TedTalk::all();
-
-        return view('admin.ted_talks.index', compact('talks'));
+        //
     }
 
     /**
@@ -29,7 +26,7 @@ class TedTalksController extends Controller
      */
     public function create()
     {
-        return view('admin.ted_talks.create');
+        //
     }
 
     /**
@@ -40,27 +37,13 @@ class TedTalksController extends Controller
      */
     public function store(Request $request)
     {
-        $talk_data = $request->all();
+        $review_data =  $request->all();
 
-        //TODO: あとで別関数に
-        if ($file = $request->file('image_id')) {
-            $image_name = time() . $file->getClientOriginalName();
-            $file->move('images', $image_name);
-            $image = Image::create(['path' => $image_name]);
-            $talk_data['image_id'] = $image->id;
-        }
+        $review_data['user_id'] = Auth::user()->id;
 
-        $talk_data['presented_at'] = Carbon::createFromDate($request->presented_year, $request->presented_month, 1);
+        BookReview::create($review_data);
 
-        $talk = TedTalk::create($talk_data);
-
-        if ($request->review) {
-            return redirect()->route('admin.ted-talks.reviews.register', $talk->id);
-        }
-
-        //TODO: フラッシュ処理実装
-
-        return redirect()->route('admin.ted-talks.index');
+        return redirect()->route('admin.books.index');
     }
 
     /**
@@ -71,9 +54,7 @@ class TedTalksController extends Controller
      */
     public function show($id)
     {
-        $talk = TedTalk::findOrFail($id);
-
-        return view('admin.ted_talks.detail', compact('talk'));
+        //
     }
 
     /**
@@ -108,5 +89,13 @@ class TedTalksController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     *
+     */
+    public function register($book_id)
+    {
+        return view('admin.books.reviews.create',  compact('book_id'));
     }
 }

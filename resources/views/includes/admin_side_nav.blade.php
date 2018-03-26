@@ -46,6 +46,21 @@
             </li>
 
             <li>
+                <a href="#"><i class="fa fa-wrench fa-fw"></i>本<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{route('admin.books.index')}}">一覧</a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('admin.books.create')}}">登録</a>
+                    </li>
+
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+
+            <li>
                 <a href="#"><i class="fa fa-wrench fa-fw"></i> Posts<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>

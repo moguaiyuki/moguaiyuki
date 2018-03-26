@@ -3,10 +3,10 @@
 @section('content')
     @include('includes.tiny_mce_editor')
 
-    <h1>TED TALKレビュー登録</h1>
+    <h1>本レビュー登録</h1>
 
-    {!! Form::open(['method'=>'POST', 'action'=>'Admin\TedReviewsController@store']) !!}
-    <input type="hidden" name="talk_id" value="{{$talk_id}}">
+    {!! Form::open(['method'=>'POST', 'action'=>'Admin\BookReviewsController@store']) !!}
+    <input type="hidden" name="book_id" value="{{$book_id}}">
     <div class="form-group">
         {!! Form::label('title', 'タイトル:') !!}
         {!! Form::text('title', null, ['class'=>'form-control']) !!}

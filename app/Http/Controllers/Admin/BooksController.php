@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Book;
 use App\Image;
-use App\TedTalk;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TedTalksController extends Controller
+class BooksController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,9 @@ class TedTalksController extends Controller
      */
     public function index()
     {
-        $talks = TedTalk::all();
+        $books = Book::all();
 
-        return view('admin.ted_talks.index', compact('talks'));
+        return view('admin.books.index', compact('books'));
     }
 
     /**
@@ -29,7 +28,7 @@ class TedTalksController extends Controller
      */
     public function create()
     {
-        return view('admin.ted_talks.create');
+        return view('admin.books.create');
     }
 
     /**
@@ -40,27 +39,25 @@ class TedTalksController extends Controller
      */
     public function store(Request $request)
     {
-        $talk_data = $request->all();
+        $book_data = $request->all();
 
         //TODO: あとで別関数に
         if ($file = $request->file('image_id')) {
             $image_name = time() . $file->getClientOriginalName();
             $file->move('images', $image_name);
             $image = Image::create(['path' => $image_name]);
-            $talk_data['image_id'] = $image->id;
+            $book_data['image_id'] = $image->id;
         }
 
-        $talk_data['presented_at'] = Carbon::createFromDate($request->presented_year, $request->presented_month, 1);
-
-        $talk = TedTalk::create($talk_data);
+        $book = Book::create($book_data);
 
         if ($request->review) {
-            return redirect()->route('admin.ted-talks.reviews.register', $talk->id);
+            return redirect()->route('admin.books.reviews.register', $book->id);
         }
 
         //TODO: フラッシュ処理実装
 
-        return redirect()->route('admin.ted-talks.index');
+        return redirect()->route('admin.books.index');
     }
 
     /**
@@ -71,9 +68,7 @@ class TedTalksController extends Controller
      */
     public function show($id)
     {
-        $talk = TedTalk::findOrFail($id);
-
-        return view('admin.ted_talks.detail', compact('talk'));
+        //
     }
 
     /**

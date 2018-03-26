@@ -39,4 +39,11 @@ Route::name('admin.')->prefix('admin')->namespace('Admin')->group(function () {
         Route::get('reviews/register/{talk_id}', 'TedReviewsController@register')->name('reviews.register');
     });
 
+    Route::resource('books', 'BooksController');
+
+    Route::name('books.')->prefix('books')->group(function () {
+        Route::resource('reviews', 'BookReviewsController');
+        Route::get('reviews/register/{book_id}', 'BookReviewsController@register')->name('reviews.register');
+    });
+
 });
