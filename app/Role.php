@@ -10,12 +10,4 @@ class Role extends Model
         'name',
     ];
 
-
-    /**
-     * 特定の役割を持つのユーザーを取得
-     */
-    public function users()
-    {
-        return $this->hasMany('App\User');
-    }
 }

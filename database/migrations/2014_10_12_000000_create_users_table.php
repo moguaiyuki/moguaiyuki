@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id')->comment('user id');
             $table->string('name')->comment('user name');
             $table->string('email')->unique()->comment('user email');
-            $table->integer('image_id')->unsighned()->nullable()->comment('user has one image');
+            $table->integer('image_id')->unsighned()->nullable()->index()->comment('user has one image');
             $table->integer('role_id')->unsighned()->nullable()->comment('user has one role');
             $table->string('password');
             $table->rememberToken();

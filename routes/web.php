@@ -19,6 +19,24 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/admin', 'AdminController@index')->name('admin');
+/**
+ * 管理画面のルーティング
+ * "App\Http\Controllers\Admin"名前空間下のコントローラを使用
+ * admin/ prefix
+ * ルート名　admin. prefix
+ * TODO: ミドルウェアの設定
+ */
+Route::name('admin.')->prefix('admin')->namespace('Admin')->group(function () {
 
-Route::resource('/admin/users', 'Admin\UsersController');
+    Route::get('/', 'HomeController@index')->name('admin');
+
+    Route::resource('users', 'UsersController');
+
+    Route::resource('ted-talks', 'TedTalksController');
+
+    Route::name('ted-talks.')->prefix('ted-talks')->group(function () {
+        Route::resource('reviews', 'TedReviewsController');
+        Route::get('reviews/register/{talk_id}', 'TedReviewsController@register')->name('reviews.register');
+    });
+
+});

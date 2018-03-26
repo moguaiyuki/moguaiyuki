@@ -13,18 +13,32 @@
                 <!-- /input-group -->
             </li>
             <li>
-                <a href="/admin"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                <a href="/admin"><i class="fa fa-dashboard fa-fw"></i>ダッシュボード</a>
             </li>
 
             <li>
-                <a href="#"><i class="fa fa-wrench fa-fw"></i>Users<span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-wrench fa-fw"></i>ユーザー<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="{{route('users.index')}}">All Users</a>
+                        <a href="{{route('admin.users.index')}}">一覧</a>
                     </li>
 
                     <li>
-                        <a href="{{route('users.create')}}">Create User</a>
+                        <a href="{{route('admin.users.create')}}">登録</a>
+                    </li>
+
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-wrench fa-fw"></i>TED Talk<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{route('admin.ted-talks.index')}}">一覧</a>
+                    </li>
+
+                    <li>
+                        <a href="{{route('admin.ted-talks.create')}}">登録</a>
                     </li>
 
                 </ul>

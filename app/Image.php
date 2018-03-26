@@ -13,14 +13,6 @@ class Image extends Model
     protected $uploads_path = "/images/";
 
     /**
-    * 画像のユーザを取得
-    */
-    public function user()
-    {
-        return $this->hasOne('App\User');
-    }
-
-    /**
     * pathの値取得時にパスを変更して取得
     */
     public function getPathAttribute($path)
