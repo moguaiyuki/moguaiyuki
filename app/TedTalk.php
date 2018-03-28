@@ -28,4 +28,12 @@ class TedTalk extends Model
         return $this->hasOne('App\TedReview', 'talk_id');
     }
 
+    /**
+    * TED TALKのタグを取得
+    */
+    public function tags()
+    {
+        return $this->morphToMany('App\Tag', 'taggable');
+    }
+
 }

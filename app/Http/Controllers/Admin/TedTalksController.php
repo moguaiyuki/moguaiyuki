@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Image;
+use App\Tag;
 use App\TedTalk;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class TedTalksController extends Controller
      */
     public function index()
     {
-        $talks = TedTalk::all();
+        $talks = TedTalk::orderBy('id', 'desc')->paginate(10);
 
         return view('admin.ted_talks.index', compact('talks'));
     }
@@ -29,7 +30,16 @@ class TedTalksController extends Controller
      */
     public function create()
     {
-        return view('admin.ted_talks.create');
+        //TODO 関数化
+        $tags = Tag::with('talks')->get();
+        $talk_tags = [];
+        foreach ($tags as $tag) {
+            if (($tag->talks->isNotEmpty())) {
+                $talk_tags["$tag->id"] = $tag->name;
+            }
+        }
+
+        return view('admin.ted_talks.create', compact('talk_tags'));
     }
 
     /**
@@ -52,7 +62,19 @@ class TedTalksController extends Controller
 
         $talk_data['presented_at'] = Carbon::createFromDate($request->presented_year, $request->presented_month, 1);
 
+        if ($tags = $request->name) {
+            foreach ($tags as $tag) {
+                $new_tag = Tag::create(['name'=>"$tag"]);
+            }
+            $tags_id[] = $new_tag->id;
+        }
+
         $talk = TedTalk::create($talk_data);
+
+        if($request->tag) {
+            $talk->tags()->sync($talk_data['tag']);
+        }
+        $talk->tags()->attach($tags_id);
 
         if ($request->review) {
             return redirect()->route('admin.ted-talks.reviews.register', $talk->id);

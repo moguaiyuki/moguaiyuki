@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Book;
 use App\Image;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +17,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        $books = Book::orderBy('id', 'desc')->paginate(10);
 
         return view('admin.books.index', compact('books'));
     }
@@ -28,7 +29,16 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('admin.books.create');
+        //TODO 関数化
+        $tags = Tag::with('books')->get();
+        $book_tags = [];
+        foreach ($tags as $tag) {
+            if (($tag->books->isNotEmpty())) {
+                $book_tags["$tag->id"] = $tag->name;
+            }
+        }
+
+        return view('admin.books.create', compact('book_tags'));
     }
 
     /**
@@ -40,6 +50,7 @@ class BooksController extends Controller
     public function store(Request $request)
     {
         $book_data = $request->all();
+        $tags_id = [];
 
         //TODO: あとで別関数に
         if ($file = $request->file('image_id')) {
@@ -49,7 +60,19 @@ class BooksController extends Controller
             $book_data['image_id'] = $image->id;
         }
 
+        if ($tags = $request->name) {
+            foreach ($tags as $tag) {
+                $new_tag = Tag::create(['name'=>"$tag"]);
+            }
+            $tags_id[] = $new_tag->id;
+        }
+
         $book = Book::create($book_data);
+
+        if($request->tag) {
+            $book->tags()->sync($book_data['tag']);
+        }
+        $book->tags()->attach($tags_id);
 
         if ($request->review) {
             return redirect()->route('admin.books.reviews.register', $book->id);

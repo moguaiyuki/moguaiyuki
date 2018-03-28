@@ -37,6 +37,19 @@
         {!! Form::radio('subtitle', '0', ['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
+        {!! Form::label('tag', 'タグ:') !!}
+        @forelse($talk_tags as $tag_id => $tag_name)
+            {!! Form::label($tag_name, $tag_name) !!}
+            {!! Form::checkbox('tag[]', $tag_id, false, ['class'=>'checkbox-inline', 'id'=>$tag_name]) !!}
+        @empty
+            現在TED TALKに関連するタグは登録されていません
+        @endforelse
+    </div>
+    <div class="form-group" id="tag">
+        {!! Form::label('name', '新規タグ:') !!}
+        {!! Form::button('タグ追加', ['class'=>'btn btn-success', 'id'=>'add_tag']) !!}
+    </div>
+    <div class="form-group">
         {!! Form::label('is_favorite', 'お気に入り:') !!}
         {!! Form::checkbox('is_favorite', '1', ['class'=>'form-control']) !!}
     </div>
@@ -71,4 +84,16 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function () {
+            $('#add_tag').click(function () {
+                $('<input>').attr({
+                    type: 'text',
+                    name: 'name[]',
+                    value: '',
+                    class: 'form-control col-sm-2'
+                }).appendTo('#tag');
+            });
+        });
+    </script>
 @endsection

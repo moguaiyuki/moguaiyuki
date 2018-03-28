@@ -12,6 +12,7 @@
             <th>タイトル</th>
             <th>状態</th>
             <th>yonda</th>
+            <th>タグ</th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,16 @@
                 <td>{{$book->title}}</td>
                 <td>{{$book->status}}</td>
                 <td>{{$book->yonda}}</td>
+                <td>@forelse ($book->tags as $tag)
+                        @if ($loop->last)
+                            {{$tag->name}}
+                        @else
+                            {{$tag->name . ','}}
+                        @endif
+                    @empty
+                        タグはありません　
+                    @endforelse
+                </td>
             </tr>
         @empty
             <tr>
@@ -30,5 +41,11 @@
         @endif
         </tbody>
     </table>
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-5">
+            {{$books->render()}}
+        </div>
+    </div>
 
 @stop

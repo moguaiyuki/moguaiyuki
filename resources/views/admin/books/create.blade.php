@@ -6,7 +6,7 @@
 
     {!! Form::open(['method'=>'POST', 'action'=>'Admin\BooksController@store', 'files'=>true]) !!}
     <div class="form-group">
-        {!! Form::label('title', 'Title:') !!}
+        {!! Form::label('title', 'タイトル:') !!}
         {!! Form::text('title', null, ['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
@@ -22,15 +22,27 @@
         {!! Form::text('amazon_url', null, ['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
+        {!! Form::label('tag', 'タグ:') !!}
+        @forelse($book_tags as $tag_id => $tag_name)
+            {!! Form::label($tag_name, $tag_name) !!}
+            {!! Form::checkbox('tag[]', $tag_id, false, ['class'=>'checkbox-inline', 'id'=>$tag_name]) !!}
+        @empty
+            現在本に関連するタグは登録されていません
+        @endforelse
+    </div>
+    <div class="form-group" id="tag">
+        {!! Form::label('name', '新規タグ:') !!}
+        {!! Form::button('タグ追加', ['class'=>'btn btn-success', 'id'=>'add_tag']) !!}
+    </div>
+    <div class="form-group">
         {!! Form::label('status', '状態:') !!}
-        買いたい
-        {!! Form::radio('status', 0, null) !!}
-        積読
-        {!! Form::radio('status', 1, null) !!}
-        読んでる
-        {!! Form::radio('status', 2, null) !!}
-        読んだ
-        {!! Form::radio('status', 3, null) !!}
+        @foreach(config('master.book_status') as $key => $value)
+            @if($loop->first)
+                {!! Form::radio('status', $key, true, null) !!} {{$value}}
+            @else
+                {!! Form::radio('status', $key, null) !!} {{$value}}
+            @endif
+        @endforeach
     </div>
     <div class="form-group">
         {!! Form::label('is_bookshelf', '本棚:') !!}
@@ -49,13 +61,26 @@
 @section('scripts')
     {{--レビューの登録有無--}}
     <script>
-        $(document).ready(function(){
-            $('#review').click(function(){
+        $(document).ready(function () {
+            $('#review').click(function () {
                 $('<input>').attr({
                     type: 'hidden',
                     name: 'review',
                     value: '1'
                 }).appendTo('form');
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#add_tag').click(function () {
+                $('<input>').attr({
+                    type: 'text',
+                    name: 'name[]',
+                    value: '',
+                    class: 'form-control col-sm-2'
+                }).appendTo('#tag');
             });
         });
     </script>

@@ -26,5 +26,12 @@ class Book extends Model
         return $this->hasOne('App\BookReview');
     }
 
+    /**
+     * 本のタグを取得
+     */
+    public function tags()
+    {
+        return $this->morphToMany('App\Tag', 'taggable');
+    }
 
 }
