@@ -30,7 +30,6 @@
                             {{$tag->name . ','}}
                         @endif
                     @empty
-                        タグはありません　
                     @endforelse
                 </td>
             </tr>

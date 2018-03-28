@@ -16,46 +16,58 @@
                 <a href="/admin"><i class="fa fa-dashboard fa-fw"></i>ダッシュボード</a>
             </li>
 
+            <!-- ユーザー -->
             <li>
                 <a href="#"><i class="fa fa-wrench fa-fw"></i>ユーザー<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{route('admin.users.index')}}">一覧</a>
                     </li>
-
                     <li>
                         <a href="{{route('admin.users.create')}}">登録</a>
                     </li>
-
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
+
+            <!-- TED TALK -->
             <li>
                 <a href="#"><i class="fa fa-wrench fa-fw"></i>TED Talk<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{route('admin.ted-talks.index')}}">一覧</a>
                     </li>
-
                     <li>
                         <a href="{{route('admin.ted-talks.create')}}">登録</a>
                     </li>
-
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
 
+            <!-- 本 -->
             <li>
                 <a href="#"><i class="fa fa-wrench fa-fw"></i>本<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
                         <a href="{{route('admin.books.index')}}">一覧</a>
                     </li>
-
                     <li>
                         <a href="{{route('admin.books.create')}}">登録</a>
                     </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
 
+            <!-- 旅行 -->
+            <li>
+                <a href="#"><i class="fa fa-wrench fa-fw"></i>旅行<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{route('admin.travels.index')}}">一覧</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.travels.create')}}">登録</a>
+                    </li>
                 </ul>
                 <!-- /.nav-second-level -->
             </li>

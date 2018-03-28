@@ -24,14 +24,14 @@
                 <td><a href="{{route('admin.ted-talks.show', $talk->id)}}">{{$talk->title}}</a></td>
                 <td>{{--<a href="{{route('admin.reviews.show', $talk->id)}}">記事を見る</a>--}}</td>
                 <td>{{$talk->url}}</td>
-                <td>@forelse ($talk->tags as $tag)
+                <td>
+                    @forelse ($talk->tags as $tag)
                         @if ($loop->last)
                             {{$tag->name}}
                         @else
                             {{$tag->name . ','}}
                         @endif
                     @empty
-                        タグはありません　
                     @endforelse
                 </td>
                 <td>{{$talk->presented_at ? $talk->presented_at->format('Y年m月') : ''}}</td>

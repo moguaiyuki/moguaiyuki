@@ -46,4 +46,6 @@ Route::name('admin.')->prefix('admin')->namespace('Admin')->group(function () {
         Route::get('reviews/register/{book_id}', 'BookReviewsController@register')->name('reviews.register');
     });
 
+    Route::resource('travels', 'TravelsController');
+
 });

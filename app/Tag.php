@@ -25,5 +25,14 @@ class Tag extends Model
     {
         return $this->morphedByMany('App\TedTalk', 'taggable');
     }
+
+    /**
+     * タグのついたの旅行を取得
+     */
+    public function travels()
+    {
+        return $this->morphedByMany('App\Travel', 'taggable');
+    }
+
 }
 
