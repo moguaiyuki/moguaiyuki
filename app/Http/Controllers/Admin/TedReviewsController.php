@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\TedReview;
+use App\TedTalk;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -63,9 +64,12 @@ class TedReviewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($talk_id)
     {
-        //
+        if ($review = TedTalk::findOrfail($talk_id)->review) {
+            return view('admin.ted_talks.reviews.edit', compact('talk_id', 'review'));
+        }
+        return redirect()->route('admin.ted-talks.reviews.register', $talk_id);
     }
 
     /**
@@ -77,7 +81,9 @@ class TedReviewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        TedReview::findOrFail($id)->update($request->all());
+
+        return redirect()->route('admin.ted-talks.index');
     }
 
     /**

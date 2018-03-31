@@ -3,10 +3,10 @@
 @section('content')
     @include('includes.tiny_mce_editor')
 
-    <h1>TED TALKレビュー登録</h1>
+    <h1>本レビュー編集</h1>
 
-    {!! Form::open(['method'=>'POST', 'action'=>'Admin\TedReviewsController@store']) !!}
-    <input type="hidden" name="talk_id" value="{{$talk_id}}">
+    {!! Form:: model($review, ['method'=>'PATCH', 'action'=>['Admin\BookReviewsController@update', $review->id]]) !!}
+    <input type="hidden" name="book_id" value="{{$book_id}}">
     <div class="form-group">
         {!! Form::label('title', 'タイトル:') !!}
         {!! Form::text('title', null, ['class'=>'form-control']) !!}
@@ -22,7 +22,7 @@
         @endforeach
     </div>
     <div class="form-group">
-        {!! Form::submit('登録', ['class'=>'btn btn-primary']) !!}
+        {!! Form::submit('編集', ['class'=>'btn btn-primary']) !!}
     </div>
     {!! Form::close() !!}
 @stop

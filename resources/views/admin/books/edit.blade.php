@@ -4,7 +4,7 @@
 
     <h1>本登録</h1>
 
-    {!! Form::open(['method'=>'POST', 'action'=>'Admin\BooksController@store', 'files'=>true]) !!}
+    {!! Form::model($book, ['method'=>'PATCH', 'action'=>['Admin\BooksController@update', $book->id], 'files'=>true]) !!}
     <div class="form-group">
         {!! Form::label('title', 'タイトル:') !!}
         {!! Form::text('title', null, ['class'=>'form-control']) !!}
@@ -14,6 +14,9 @@
         {!! Form::text('author', null, ['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
+        <div>
+            <img height="50" src="{{$book->image ? $book->image->path : ''}}" alt="">
+        </div>
         {!! Form::label('image_id', '画像:') !!}
         {!! Form::file('image_id', null, ['class'=>'form-control']) !!}
     </div>
@@ -25,7 +28,7 @@
         {!! Form::label('tag', 'タグ:') !!}
         @forelse($book_tags as $tag_id => $tag_name)
             {!! Form::label($tag_name, $tag_name) !!}
-            {!! Form::checkbox('tag[]', $tag_id, false, ['class'=>'checkbox-inline', 'id'=>$tag_name]) !!}
+            {!! Form::checkbox('tag[]', $tag_id, in_array($tag_id, $book->tags->pluck('id')->all()), ['class'=>'checkbox-inline', 'id'=>$tag_name]) !!}
         @empty
             現在本に関連するタグは登録されていません
         @endforelse
@@ -46,13 +49,13 @@
     </div>
     <div class="form-group">
         {!! Form::label('is_bookshelf', '本棚:') !!}
-        {!! Form::checkbox('is_bookshelf', 1, ['class'=>'form-control']) !!}
+        {!! Form::checkbox('is_bookshelf', 1, null) !!}
     </div>
     <div class="form-group">
         {!! Form::submit('登録', ['class'=>'btn btn-primary']) !!}
     </div>
     <div class="form-group">
-        {!! Form::submit('続けてレビューも登録する', ['class'=>'btn btn-info', 'id'=>'review']) !!}
+        {!! Form::submit('続けてレビューも編集する', ['class'=>'btn btn-info', 'id'=>'review']) !!}
     </div>
     {!! Form::close() !!}
 
@@ -85,4 +88,4 @@
         });
     </script>
 
-@endsection
+@stop

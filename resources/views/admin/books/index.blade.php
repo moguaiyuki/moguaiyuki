@@ -13,6 +13,7 @@
             <th>状態</th>
             <th>yonda</th>
             <th>タグ</th>
+            <th>編集・削除</th>
         </tr>
         </thead>
         <tbody>
@@ -20,18 +21,19 @@
             <tr>
                 <td>{{$book->id}}</td>
                 <td><img height="50" src="{{$book->image ? $book->image->path : ''}}" alt=""></td>
-                <td>{{$book->title}}</td>
+                <td><a href="{{route('admin.books.show', $book->id)}}">{{$book->title}}</a></td>
                 <td>{{$book->status}}</td>
                 <td>{{$book->yonda}}</td>
-                <td>@forelse ($book->tags as $tag)
+                <td>
+                    @foreach ($book->tags as $tag)
                         @if ($loop->last)
                             {{$tag->name}}
                         @else
                             {{$tag->name . ','}}
                         @endif
-                    @empty
-                    @endforelse
+                    @endforeach
                 </td>
+                <td><a href="{{route('admin.books.edit', $book->id)}}">編集</a>・削除</td>
             </tr>
         @empty
             <tr>

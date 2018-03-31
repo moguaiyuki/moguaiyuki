@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Book;
 use App\BookReview;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -63,9 +64,12 @@ class BookReviewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($book_id)
     {
-        //
+        if ($review = Book::findOrfail($book_id)->review) {
+            return view('admin.books.reviews.edit', compact('book_id', 'review'));
+        }
+        return redirect()->route('admin.books.reviews.register', $book_id);
     }
 
     /**
@@ -77,7 +81,9 @@ class BookReviewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        BookReview::findOrFail($id)->update($request->all());
+
+        return redirect()->route('admin.books.index');
     }
 
     /**

@@ -5,7 +5,7 @@
 
     <h1>TED TALKレビュー登録</h1>
 
-    {!! Form::open(['method'=>'POST', 'action'=>'Admin\TedReviewsController@store']) !!}
+    {!! Form::model($review, ['method'=>'PATCH', 'action'=>['Admin\TedReviewsController@update', $review]]) !!}
     <input type="hidden" name="talk_id" value="{{$talk_id}}">
     <div class="form-group">
         {!! Form::label('title', 'タイトル:') !!}

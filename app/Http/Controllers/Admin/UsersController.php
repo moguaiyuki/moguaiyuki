@@ -6,10 +6,9 @@ use App\Image;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
-class UsersController extends Controller
+class UsersController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -38,20 +37,14 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $user_data = $request->all();
 
-        //TODO: あとで別関数に
-        if ($file = $request->file('image_id')) {
-            $image_name = time() . $file->getClientOriginalName();
-            $file->move('images', $image_name);
-            $image = Image::create(['path' => $image_name]);
-            $user_data['image_id'] = $image->id;
-        }
+        $user_data['image_id'] = $this->imageUpload($request);
 
         User::create($user_data);
 
@@ -63,7 +56,7 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -74,7 +67,7 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -88,8 +81,8 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -97,12 +90,8 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user_data = $request->all();
 
-        //TODO: あとで別関数に
         if ($file = $request->file('image_id')) {
-            $image_name = time() . $file->getClientOriginalName();
-            $file->move('images', $image_name);
-            $image = Image::create(['path' => $image_name]);
-            $user_data['image_id'] = $image->id;
+            $user_data['image_id'] = $this->imageUpload($file);
         }
 
         $user->update($user_data);
@@ -116,11 +105,11 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {dd(1);
+    {
         $user = User::findOrFail($id);
 
         if ($user->image) {

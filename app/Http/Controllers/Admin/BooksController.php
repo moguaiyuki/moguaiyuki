@@ -29,14 +29,7 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //TODO 関数化
-        $tags = Tag::with('books')->get();
-        $book_tags = [];
-        foreach ($tags as $tag) {
-            if (($tag->books->isNotEmpty())) {
-                $book_tags["$tag->id"] = $tag->name;
-            }
-        }
+        $book_tags = $this->getBookTags();
 
         return view('admin.books.create', compact('book_tags'));
     }
@@ -50,7 +43,6 @@ class BooksController extends Controller
     public function store(Request $request)
     {
         $book_data = $request->all();
-        $tags_id = [];
 
         //TODO: あとで別関数に
         if ($file = $request->file('image_id')) {
@@ -60,19 +52,9 @@ class BooksController extends Controller
             $book_data['image_id'] = $image->id;
         }
 
-        if ($tags = $request->name) {
-            foreach ($tags as $tag) {
-                $new_tag = Tag::create(['name'=>"$tag"]);
-            }
-            $tags_id[] = $new_tag->id;
-        }
-
         $book = Book::create($book_data);
 
-        if($request->tag) {
-            $book->tags()->sync($book_data['tag']);
-        }
-        $book->tags()->attach($tags_id);
+        $this->attachBookTag($book, $request);
 
         if ($request->review) {
             return redirect()->route('admin.books.reviews.register', $book->id);
@@ -91,7 +73,9 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        //
+        $book = Book::findOrFail($id);
+
+        return view('admin.books.detail', compact('book'));
     }
 
     /**
@@ -102,7 +86,11 @@ class BooksController extends Controller
      */
     public function edit($id)
     {
-        //
+        $book = Book::findOrFail($id);
+
+        $book_tags = $this->getBookTags();
+
+        return view('admin.books.edit', compact('book', 'book_tags'));
     }
 
     /**
@@ -114,7 +102,29 @@ class BooksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $book = Book::findOrFail($id);
+
+        $book_data = $request->all();
+
+        if ($file = $request->file('image_id')) {
+            $image_name = time() . $file->getClientOriginalName();
+            $file->move('images', $image_name);
+            $image = Image::create(['path' => $image_name]);
+            $book_data['image_id'] = $image->id;
+            if ($book->image) {
+                unlink(public_path() . $book->image->path);
+            }
+        }
+
+        $book->update($book_data);
+
+        $this->attachBookTag($book, $request);
+
+        if ($request->review) {
+            return redirect()->route('admin.books.reviews.edit', $book->id);
+        }
+
+        return redirect()->route('admin.books.index');
     }
 
     /**
@@ -126,5 +136,31 @@ class BooksController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function getBookTags()
+    {
+        $tags = Tag::with('books')->get();
+        $book_tags = [];
+        foreach ($tags as $tag) {
+            if (($tag->books->isNotEmpty())) {
+                $book_tags["$tag->id"] = $tag->name;
+            }
+        }
+        return $book_tags;
+    }
+
+    private function attachBookTag($book, $request)
+    {
+        if($request->tag) {
+            $book->tags()->sync($request->tag);
+        }
+        if ($tags = $request->name) {
+            foreach ($tags as $tag) {
+                $new_tag = Tag::create(['name'=>"$tag"]);
+            }
+            $tags_id[] = $new_tag->id;
+            $book->tags()->attach($tags_id);
+        }
     }
 }

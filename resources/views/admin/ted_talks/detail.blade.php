@@ -11,7 +11,7 @@
             </tr>
             <tr>
                 <th>プレゼンター</th>
-                <td>{{$talk->presentor}}</td>
+                <td>{{$talk->presenter}}</td>
             </tr>
             <tr>
                 <th>URL</th>
@@ -27,7 +27,7 @@
             </tr>
             <tr>
                 <th>日本語字幕</th>
-                <td>{{$talk->subtitle}}</td>
+                <td>@if($talk->subtitle) あり @else なし @endif</td>
             </tr>
             <tr>
                 <th>お気に入り</th>
@@ -61,6 +61,4 @@
         </div>
 
     @endif
-
-
 @stop

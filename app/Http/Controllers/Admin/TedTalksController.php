@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TedTalksController extends Controller
+class TedTalksController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -30,14 +30,7 @@ class TedTalksController extends Controller
      */
     public function create()
     {
-        //TODO 関数化
-        $tags = Tag::with('talks')->get();
-        $talk_tags = [];
-        foreach ($tags as $tag) {
-            if (($tag->talks->isNotEmpty())) {
-                $talk_tags["$tag->id"] = $tag->name;
-            }
-        }
+        $talk_tags = $this->getBookTags();
 
         return view('admin.ted_talks.create', compact('talk_tags'));
     }
@@ -106,7 +99,11 @@ class TedTalksController extends Controller
      */
     public function edit($id)
     {
-        //
+        $talk = TedTalk::findOrFail($id);
+        $tags = $this->getTalkTags();
+        $talk_tags = $talk->tags->pluck('id')->all();
+
+        return view('admin.ted_talks.edit', compact('talk', 'tags', 'talk_tags'));
     }
 
     /**
@@ -118,7 +115,28 @@ class TedTalksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $talk= TedTalk::findOrFail($id);
+
+        $talk_data = $request->all();
+
+        if ($file = $request->file('image_id')) {
+            $image_name = time() . $file->getClientOriginalName();
+            $file->move('images', $image_name);
+            $image = Image::create(['path' => $image_name]);
+            $talk_data['image_id'] = $image->id;
+            if ($talk->image) {
+                unlink(public_path() . $talk->image->path);
+            }
+        }
+        $talk->update($talk_data);
+
+        $this->attachTalkTag($talk, $request);
+
+        if ($request->review) {
+            return redirect()->route('admin.ted-talks.reviews.edit', $talk->id);
+        }
+
+        return redirect()->route('admin.ted-talks.index');
     }
 
     /**
@@ -130,5 +148,39 @@ class TedTalksController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+    *TED関連のタグを全て取得
+     *
+     * @return $talk_tags
+    */
+    private function getTalkTags()
+    {
+        $tags = Tag::with('talks')->get();
+        $talk_tags = [];
+        foreach ($tags as $tag) {
+            if (($tag->talks->isNotEmpty())) {
+                $talk_tags["$tag->id"] = $tag->name;
+            }
+        }
+        return $talk_tags;
+    }
+
+    /**
+    * TED TALKにタグをつける
+    */
+    private function attachTalkTag($talk, $request)
+    {
+        if($request->tag) {
+            $talk->tags()->sync($request->tag);
+        }
+        if ($tags = $request->name) {
+            foreach ($tags as $tag) {
+                $new_tag = Tag::create(['name'=>"$tag"]);
+            }
+            $tags_id[] = $new_tag->id;
+            $talk->tags()->attach($tags_id);
+        }
     }
 }

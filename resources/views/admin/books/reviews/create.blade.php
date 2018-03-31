@@ -17,13 +17,12 @@
     </div>
     <div class="form-group">
         {!! Form::label('status', 'ステータス：') !!}
-        下書き
-        {!! Form::radio('status', 0, ['class'=>'form-control']) !!}
-        公開
-        {!! Form::radio('status', 1, ['class'=>'form-control']) !!}
+        @foreach(config('admin.publish_status') as $key => $value)
+            {!! Form::radio('status', $key, $loop->first? true : null) !!}{{$value}}
+        @endforeach
     </div>
     <div class="form-group">
-        {!! Form::submit('Create Post', ['class'=>'btn btn-primary']) !!}
+        {!! Form::submit('登録', ['class'=>'btn btn-primary']) !!}
     </div>
     {!! Form::close() !!}
 @stop

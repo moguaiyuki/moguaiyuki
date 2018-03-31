@@ -14,6 +14,7 @@
             <th>トークURL</th>
             <th>タグ</th>
             <th>プレゼン日時</th>
+            <th>編集・削除</th>
         </tr>
         </thead>
         <tbody>
@@ -25,16 +26,12 @@
                 <td>{{--<a href="{{route('admin.reviews.show', $talk->id)}}">記事を見る</a>--}}</td>
                 <td>{{$talk->url}}</td>
                 <td>
-                    @forelse ($talk->tags as $tag)
-                        @if ($loop->last)
-                            {{$tag->name}}
-                        @else
-                            {{$tag->name . ','}}
-                        @endif
-                    @empty
-                    @endforelse
+                    @foreach ($talk->tags as $tag)
+                        {{$loop->last ? $tag->name : $tag->name . ','}}
+                    @endforeach
                 </td>
                 <td>{{$talk->presented_at ? $talk->presented_at->format('Y年m月') : ''}}</td>
+                <td><a href="{{route('admin.ted-talks.edit', $talk->id)}}">編集</a>・削除</td>
             </tr>
         @empty
             <tr>
