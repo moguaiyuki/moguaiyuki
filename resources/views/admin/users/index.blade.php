@@ -10,6 +10,7 @@
                 <th>名前</th>
                 <th>メール</th>
                 <th>権限</th>
+                <th>編集・削除</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,7 @@
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->role ? $user->role->name : ''}}</td>
+                <td><a href="{{route('admin.users.edit', $user->id)}}">編集</a>・削除</td>
             </tr>
             @empty
             <tr>

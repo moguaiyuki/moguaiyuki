@@ -43,4 +43,16 @@ class User extends Authenticatable
         return $this->belongsTo('App\Image');
     }
 
+    /**
+    * パスワードの暗号化
+    */
+    public function setPasswordAttribute($password)
+    {
+        if ($password == '') {
+            unset($this->attributes['password']);
+        } else {
+            $this->attributes['password'] = bcrypt($password);
+        }
+    }
+
 }

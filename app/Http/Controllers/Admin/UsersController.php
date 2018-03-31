@@ -7,6 +7,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
@@ -54,7 +55,7 @@ class UsersController extends Controller
 
         User::create($user_data);
 
-        //TODO: フラッシュ処理実装
+        Session::flash('user_flash', 'ユーザの削除に成功しました.');
 
         return redirect('admin/users');
     }
@@ -78,7 +79,10 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $roles = Role::pluck('name', 'id')->all();
+
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -90,7 +94,23 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user_data = $request->all();
+
+        //TODO: あとで別関数に
+        if ($file = $request->file('image_id')) {
+            $image_name = time() . $file->getClientOriginalName();
+            $file->move('images', $image_name);
+            $image = Image::create(['path' => $image_name]);
+            $user_data['image_id'] = $image->id;
+        }
+
+        $user->update($user_data);
+
+        Session::flash('user_flash', 'ユーザの編集に成功しました.');
+
+        return redirect()->route('admin.users.index');
+
     }
 
     /**
@@ -100,7 +120,17 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {dd(1);
+        $user = User::findOrFail($id);
+
+        if ($user->image) {
+            unlink(public_path() . $user->image->path);
+        }
+
+        $user->delete();
+
+        Session::flash('user_flash', 'ユーザの削除に成功しました.');
+
+        return redirect()->route('admin.users.index');
     }
 }
