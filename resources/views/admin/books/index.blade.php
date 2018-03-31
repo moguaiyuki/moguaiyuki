@@ -26,11 +26,7 @@
                 <td>{{$book->yonda}}</td>
                 <td>
                     @foreach ($book->tags as $tag)
-                        @if ($loop->last)
-                            {{$tag->name}}
-                        @else
-                            {{$tag->name . ','}}
-                        @endif
+                        {{$loop->last ? $tag->name : $tag->name . ','}}
                     @endforeach
                 </td>
                 <td><a href="{{route('admin.books.edit', $book->id)}}">編集</a>・削除</td>

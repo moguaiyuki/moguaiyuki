@@ -21,11 +21,7 @@
                 <th>タグ</th>
                 <td>
                     @foreach($book->tags as $tag)
-                        @if ($loop->last)
-                            {{$tag->name}}
-                        @else
-                            {{$tag->name . ','}}
-                        @endif
+                        {{$loop->last ? $tag->name : $tag->name . ','}}
                     @endforeach
                 </td>
             </tr>

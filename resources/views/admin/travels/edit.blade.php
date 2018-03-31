@@ -6,9 +6,9 @@
 @section('content')
     @include('includes.tiny_mce_editor')
 
-    <h1>旅行登録</h1>
+    <h1>旅行編集</h1>
 
-    {!! Form::open(['method'=>'POST', 'action'=>'Admin\TravelsController@store', 'files'=>true]) !!}
+    {!! Form::model($travel, ['method'=>'PATCH', 'action'=>['Admin\TravelsController@update', $travel->id], 'files'=>true]) !!}
     <div class="form-group">
         {!! Form::label('title', 'タイトル:') !!}
         {!! Form::text('title', null, ['class'=>'form-control']) !!}
@@ -27,9 +27,9 @@
     </div>
     <div class="form-group">
         {!! Form::label('tag', 'タグ:') !!}
-        @forelse($travel_tags as $tag_id => $tag_name)
+        @forelse($tags as $tag_id => $tag_name)
             {!! Form::label($tag_name, $tag_name) !!}
-            {!! Form::checkbox('tag[]', $tag_id, false, ['class'=>'checkbox-inline', 'id'=>$tag_name]) !!}
+            {!! Form::checkbox('tag[]', $tag_id, in_array($tag_id, $travel_tags), ['class'=>'checkbox-inline', 'id'=>$tag_name]) !!}
         @empty
             現在旅行に関連するタグは登録されていません
         @endforelse
@@ -40,17 +40,17 @@
     </div>
     <div class="form-group">
         {!! Form::label('start_date', '旅のはじまり:') !!}
-        {!! Form::date('start_date', null, ['class'=>'form-control']) !!}
+        {!! Form::date('start_date', null) !!}
     </div>
     <div>
         {!! Form::label('end_date', '旅のおわり:') !!}
-        {!! Form::date('end_date', null, ['class'=>'form-control']) !!}
+        {!! Form::date('end_date', null) !!}
     </div>
     <div class="form-group">
         {!! Form::label('is_published', '公開ステータス') !!}
         @foreach(config('admin.publish_status') as $key => $value)
             {!! Form::label('$value', $value) !!}
-            {!! Form::radio('is_published', $key, $key==0?true:false , ['id'=>'$value']) !!}
+            {!! Form::radio('is_published', $key, null, ['id'=>'$value']) !!}
         @endforeach
     </div>
     <div class="form-group">

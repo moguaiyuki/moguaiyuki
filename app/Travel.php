@@ -36,4 +36,10 @@ class Travel extends Model
     {
         return $this->morphToMany('App\Tag', 'taggable');
     }
+
+    public function image()
+    {
+        return $this->belongsTo('App\Image');
+    }
+
 }

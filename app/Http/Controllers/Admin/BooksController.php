@@ -8,7 +8,7 @@ use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class BooksController extends Controller
+class BooksController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -46,10 +46,7 @@ class BooksController extends Controller
 
         //TODO: あとで別関数に
         if ($file = $request->file('image_id')) {
-            $image_name = time() . $file->getClientOriginalName();
-            $file->move('images', $image_name);
-            $image = Image::create(['path' => $image_name]);
-            $book_data['image_id'] = $image->id;
+            $book_data['image_id'] = $this->imageUpload($file);
         }
 
         $book = Book::create($book_data);

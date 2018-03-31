@@ -45,29 +45,15 @@ class TedTalksController extends BaseController
     {
         $talk_data = $request->all();
 
-        //TODO: あとで別関数に
         if ($file = $request->file('image_id')) {
-            $image_name = time() . $file->getClientOriginalName();
-            $file->move('images', $image_name);
-            $image = Image::create(['path' => $image_name]);
-            $talk_data['image_id'] = $image->id;
+            $talk_data['image_id'] = $this->imageUpload($file);
         }
 
         $talk_data['presented_at'] = Carbon::createFromDate($request->presented_year, $request->presented_month, 1);
 
-        if ($tags = $request->name) {
-            foreach ($tags as $tag) {
-                $new_tag = Tag::create(['name'=>"$tag"]);
-            }
-            $tags_id[] = $new_tag->id;
-        }
-
         $talk = TedTalk::create($talk_data);
 
-        if($request->tag) {
-            $talk->tags()->sync($talk_data['tag']);
-        }
-        $talk->tags()->attach($tags_id);
+        $this->attachTalkTag($talk, $request);
 
         if ($request->review) {
             return redirect()->route('admin.ted-talks.reviews.register', $talk->id);

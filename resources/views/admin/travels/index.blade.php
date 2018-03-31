@@ -16,6 +16,7 @@
             <th>タグ</th>
             <th>公開ステータス</th>
             <th>登録日</th>
+            <th>編集・削除</th>
         </tr>
         </thead>
         <tbody>
@@ -23,22 +24,18 @@
             <tr>
                 <td>{{$travel->id}}</td>
                 <td><img width="50" src="{{$travel->image ? $travel->image->path : ''}}" alt=""></td>
-                <td>{{$travel->title}}</td>
+                <td><a href="{{route('admin.travels.show', $travel->id)}}">{{$travel->title}}</a></td>
                 <td>{{$travel->country}}</td>
                 <td>{{$travel->start_date->format('Y/m/d')}}~{{$travel->end_date->format('Y/m/d')}}</td>
                 <td>{!! str_limit($travel->content,30) !!}</td>
                 <td>
-                    @forelse ($travel->tags as $tag)
-                        @if ($loop->last)
-                            {{$tag->name}}
-                        @else
-                            {{$tag->name . ','}}
-                        @endif
-                    @empty　
-                    @endforelse
+                    @foreach ($travel->tags as $tag)
+                        {{$loop->last ? $tag->name : $tag->name . ','}}
+                    @endforeach
                 </td>
-                <td>{{config('master.publish_status')[$travel->is_published]}}</td>
+                <td>{{config('admin.publish_status')[$travel->is_published]}}</td>
                 <td>{{$travel->created_at->format('Y/m/d')}}</td>
+                <td><a href="{{route('admin.travels.edit', $travel->id)}}">編集</a>・削除</td>
             </tr>
         @empty
             <tr>

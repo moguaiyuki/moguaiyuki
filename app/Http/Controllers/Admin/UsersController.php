@@ -44,7 +44,9 @@ class UsersController extends BaseController
     {
         $user_data = $request->all();
 
-        $user_data['image_id'] = $this->imageUpload($request);
+        if ($file = $request->file('image_id')) {
+            $user_data['image_id'] = $this->imageUpload($file);
+        }
 
         User::create($user_data);
 
