@@ -72,7 +72,7 @@
                 <!-- /.nav-second-level -->
             </li>
 
-            <!-- 旅行 -->
+            <!-- プログラミング -->
             <li>
                 <a href="#"><i class="fa fa-wrench fa-fw"></i>プログラミング<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
@@ -81,6 +81,20 @@
                     </li>
                     <li>
                         <a href="{{route('admin.programing.create')}}">登録</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+
+            <!-- マーケティング -->
+            <li>
+                <a href="#"><i class="fa fa-wrench fa-fw"></i>マーケティング<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{route('admin.marketing.index')}}">一覧</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.marketing.create')}}">登録</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->

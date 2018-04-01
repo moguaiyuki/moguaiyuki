@@ -116,9 +116,6 @@ class ProgramingController extends BaseController
 
         $this->attachProgramingTag($programing, $request);
 
-        if ($request->review) {
-            return redirect()->route('admin.programing.reviews.edit', $programing->id);
-        }
 
         return redirect()->route('admin.programing.index');
     }
@@ -160,8 +157,8 @@ class ProgramingController extends BaseController
         if ($tags = $request->name) {
             foreach ($tags as $tag) {
                 $new_tag = Tag::create(['name'=>"$tag"]);
+                $tags_id[] = $new_tag->id;
             }
-            $tags_id[] = $new_tag->id;
             $programing->tags()->attach($tags_id);
         }
     }

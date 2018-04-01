@@ -30,7 +30,7 @@ class Programing extends Model
     }
 
     /**
-    * プログラミング記事の投稿者を取得
+    * Programing記事の投稿者を取得
     */
     public function user()
     {

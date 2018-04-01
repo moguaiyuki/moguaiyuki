@@ -35,7 +35,7 @@
             </tr>
         @empty
             <tr>
-                <td>旅行の記録はありません</td>
+                <td>プログラミングの記録はありません</td>
             </tr>
         @endforelse
         </tbody>

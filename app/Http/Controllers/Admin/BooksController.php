@@ -160,8 +160,8 @@ class BooksController extends BaseController
         if ($tags = $request->name) {
             foreach ($tags as $tag) {
                 $new_tag = Tag::create(['name'=>"$tag"]);
+                $tags_id[] = $new_tag->id;
             }
-            $tags_id[] = $new_tag->id;
             $book->tags()->attach($tags_id);
         }
     }

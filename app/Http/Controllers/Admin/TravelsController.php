@@ -165,8 +165,8 @@ class TravelsController extends BaseController
         if ($tags = $request->name) {
             foreach ($tags as $tag) {
                 $new_tag = Tag::create(['name'=>"$tag"]);
+                $tags_id[] = $new_tag->id;
             }
-            $tags_id[] = $new_tag->id;
             $travel->tags()->attach($tags_id);
         }
     }

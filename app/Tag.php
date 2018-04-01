@@ -42,5 +42,21 @@ class Tag extends Model
         return $this->morphedByMany('App\Programing', 'taggable');
     }
 
+    /**
+     * タグのついたのマーケティングを取得
+     */
+    public function marketing()
+    {
+        return $this->morphedByMany('App\Marketing', 'taggable');
+    }
+
+    /**
+     * タグのついたのマーケティングを取得
+     */
+    public function english()
+    {
+        return $this->morphedByMany('App\English', 'taggable');
+    }
+
 }
 

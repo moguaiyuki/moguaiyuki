@@ -164,8 +164,8 @@ class TedTalksController extends BaseController
         if ($tags = $request->name) {
             foreach ($tags as $tag) {
                 $new_tag = Tag::create(['name'=>"$tag"]);
+                $tags_id[] = $new_tag->id;
             }
-            $tags_id[] = $new_tag->id;
             $talk->tags()->attach($tags_id);
         }
     }
