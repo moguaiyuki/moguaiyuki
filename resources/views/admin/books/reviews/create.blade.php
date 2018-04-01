@@ -16,7 +16,7 @@
         {!! Form::textarea('content', null, ['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
-        {!! Form::label('status', 'ステータス：') !!}
+        {!! Form::label('status', '公開ステータス：') !!}
         @foreach(config('admin.publish_status') as $key => $value)
             {!! Form::radio('status', $key, $loop->first? true : null) !!}{{$value}}
         @endforeach

@@ -34,5 +34,13 @@ class Tag extends Model
         return $this->morphedByMany('App\Travel', 'taggable');
     }
 
+    /**
+     * タグのついたのプログラミングを取得
+     */
+    public function programing()
+    {
+        return $this->morphedByMany('App\Programing', 'taggable');
+    }
+
 }
 

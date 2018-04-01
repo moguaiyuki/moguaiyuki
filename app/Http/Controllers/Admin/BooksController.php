@@ -44,7 +44,6 @@ class BooksController extends BaseController
     {
         $book_data = $request->all();
 
-        //TODO: あとで別関数に
         if ($file = $request->file('image_id')) {
             $book_data['image_id'] = $this->imageUpload($file);
         }
@@ -84,10 +83,10 @@ class BooksController extends BaseController
     public function edit($id)
     {
         $book = Book::findOrFail($id);
+        $tags = $this->getBookTags();
+        $book_tags = $book->tags->pluck('id')->all();
 
-        $book_tags = $this->getBookTags();
-
-        return view('admin.books.edit', compact('book', 'book_tags'));
+        return view('admin.books.edit', compact('book', 'book_tags', 'tags'));
     }
 
     /**
@@ -135,6 +134,9 @@ class BooksController extends BaseController
         //
     }
 
+    /**
+     *　本のタグを取得
+     */
     private function getBookTags()
     {
         $tags = Tag::with('books')->get();
@@ -147,6 +149,9 @@ class BooksController extends BaseController
         return $book_tags;
     }
 
+    /**
+    * 本にタグづけ
+    */
     private function attachBookTag($book, $request)
     {
         if($request->tag) {

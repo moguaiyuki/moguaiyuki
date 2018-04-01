@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Image;
+use App\Programing;
 use App\Tag;
-use App\TedTalk;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
-class TedTalksController extends BaseController
+class ProgramingController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,9 @@ class TedTalksController extends BaseController
      */
     public function index()
     {
-        $talks = TedTalk::orderBy('id', 'desc')->paginate(10);
+        $programings = Programing::orderBy('id', 'desc')->paginate(10);
 
-        return view('admin.ted_talks.index', compact('talks'));
+        return view('admin.programing.index', compact('programings'));
     }
 
     /**
@@ -30,9 +30,9 @@ class TedTalksController extends BaseController
      */
     public function create()
     {
-        $talk_tags = $this->getTalkTags();
+        $programing_tags = $this->getProgramingTags();
 
-        return view('admin.ted_talks.create', compact('talk_tags'));
+        return view('admin.programing.create', compact('programing_tags'));
     }
 
     /**
@@ -43,25 +43,21 @@ class TedTalksController extends BaseController
      */
     public function store(Request $request)
     {
-        $talk_data = $request->all();
+        $programing_data = $request->all();
 
         if ($file = $request->file('image_id')) {
-            $talk_data['image_id'] = $this->imageUpload($file);
+            $programing_data['image_id'] = $this->imageUpload($file);
         }
 
-        $talk_data['presented_at'] = Carbon::createFromDate($request->presented_year, $request->presented_month, 1);
+        $programing_data['user_id'] = Auth::user()->id;
 
-        $talk = TedTalk::create($talk_data);
+        $programing = Programing::create($programing_data);
 
-        $this->attachTalkTag($talk, $request);
-
-        if ($request->review) {
-            return redirect()->route('admin.ted-talks.reviews.register', $talk->id);
-        }
+        $this->attachProgramingTag($programing, $request);
 
         //TODO: フラッシュ処理実装
 
-        return redirect()->route('admin.ted-talks.index');
+        return redirect()->route('admin.programing.index');
     }
 
     /**
@@ -72,9 +68,9 @@ class TedTalksController extends BaseController
      */
     public function show($id)
     {
-        $talk = TedTalk::findOrFail($id);
+        $programing = Programing::findOrFail($id);
 
-        return view('admin.ted_talks.detail', compact('talk'));
+        return view('admin.programing.detail', compact('programing'));
     }
 
     /**
@@ -85,11 +81,12 @@ class TedTalksController extends BaseController
      */
     public function edit($id)
     {
-        $talk = TedTalk::findOrFail($id);
-        $tags = $this->getTalkTags();
-        $talk_tags = $talk->tags->pluck('id')->all();
+        $programing = Programing::findOrFail($id);
 
-        return view('admin.ted_talks.edit', compact('talk', 'tags', 'talk_tags'));
+        $tags = $this->getProgramingTags();
+        $programing_tags = $programing->tags->pluck('id')->all();
+
+        return view('admin.programing.edit', compact('programing', 'programing_tags', 'tags'));
     }
 
     /**
@@ -101,28 +98,29 @@ class TedTalksController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $talk= TedTalk::findOrFail($id);
+        $programing = Programing::findOrFail($id);
 
-        $talk_data = $request->all();
+        $programing_data = $request->all();
 
         if ($file = $request->file('image_id')) {
             $image_name = time() . $file->getClientOriginalName();
             $file->move('images', $image_name);
             $image = Image::create(['path' => $image_name]);
-            $talk_data['image_id'] = $image->id;
-            if ($talk->image) {
-                unlink(public_path() . $talk->image->path);
+            $programing_data['image_id'] = $image->id;
+            if ($programing->image) {
+                unlink(public_path() . $programing->image->path);
             }
         }
-        $talk->update($talk_data);
 
-        $this->attachTalkTag($talk, $request);
+        $programing->update($programing_data);
+
+        $this->attachProgramingTag($programing, $request);
 
         if ($request->review) {
-            return redirect()->route('admin.ted-talks.reviews.edit', $talk->id);
+            return redirect()->route('admin.programing.reviews.edit', $programing->id);
         }
 
-        return redirect()->route('admin.ted-talks.index');
+        return redirect()->route('admin.programing.index');
     }
 
     /**
@@ -137,36 +135,34 @@ class TedTalksController extends BaseController
     }
 
     /**
-    *TED関連のタグを全て取得
-     *
-     * @return $talk_tags
+    * プログラミングのタグを取得
     */
-    private function getTalkTags()
+    private function getProgramingTags()
     {
-        $tags = Tag::with('talks')->get();
-        $talk_tags = [];
+        $tags = Tag::with('programing')->get();
+        $programing_tags = [];
         foreach ($tags as $tag) {
-            if (($tag->talks->isNotEmpty())) {
-                $talk_tags["$tag->id"] = $tag->name;
+            if (($tag->programing->isNotEmpty())) {
+                $programing_tags["$tag->id"] = $tag->name;
             }
         }
-        return $talk_tags;
+        return $programing_tags;
     }
 
     /**
-    * TED TALKにタグをつける
-    */
-    private function attachTalkTag($talk, $request)
+     * 本にタグづけ
+     */
+    private function attachProgramingTag($programing, $request)
     {
         if($request->tag) {
-            $talk->tags()->sync($request->tag);
+            $programing->tags()->sync($request->tag);
         }
         if ($tags = $request->name) {
             foreach ($tags as $tag) {
                 $new_tag = Tag::create(['name'=>"$tag"]);
             }
             $tags_id[] = $new_tag->id;
-            $talk->tags()->attach($tags_id);
+            $programing->tags()->attach($tags_id);
         }
     }
 }
