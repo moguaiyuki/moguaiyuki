@@ -51,4 +51,6 @@ Route::name('admin.')->prefix('admin')->namespace('Admin')->group(function () {
     Route::resource('programing', 'ProgramingController');
 
     Route::resource('marketing', 'MarketingController');
+
+    Route::resource('english', 'EnglishController');
 });

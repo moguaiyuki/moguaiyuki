@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\English;
 use App\Image;
-use App\Programing;
 use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class ProgramingController extends BaseController
+class EnglishController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +18,9 @@ class ProgramingController extends BaseController
      */
     public function index()
     {
-        $programings = Programing::orderBy('id', 'desc')->paginate(10);
+        $englishes = English::orderBy('id', 'desc')->paginate(10);
 
-        return view('admin.programing.index', compact('programings'));
+        return view('admin.english.index', compact('englishes'));
     }
 
     /**
@@ -30,9 +30,9 @@ class ProgramingController extends BaseController
      */
     public function create()
     {
-        $programing_tags = $this->getProgramingTags();
+        $english_tags = $this->getEnglishTags();
 
-        return view('admin.programing.create', compact('programing_tags'));
+        return view('admin.english.create', compact('english_tags'));
     }
 
     /**
@@ -43,21 +43,21 @@ class ProgramingController extends BaseController
      */
     public function store(Request $request)
     {
-        $programing_data = $request->all();
+        $english_data = $request->all();
 
         if ($file = $request->file('image_id')) {
-            $programing_data['image_id'] = $this->imageUpload($file);
+            $english_data['image_id'] = $this->imageUpload($file);
         }
 
-        $programing_data['user_id'] = Auth::user()->id;
+        $english_data['user_id'] = Auth::user()->id;
 
-        $programing = Programing::create($programing_data);
+        $english = English::create($english_data);
 
-        $this->attachProgramingTag($programing, $request);
+        $this->attachEnglishTag($english, $request);
 
         //TODO: フラッシュ処理実装
 
-        return redirect()->route('admin.programing.index');
+        return redirect()->route('admin.english.index');
     }
 
     /**
@@ -68,9 +68,9 @@ class ProgramingController extends BaseController
      */
     public function show($id)
     {
-        $programing = Programing::findOrFail($id);
+        $english = English::findOrFail($id);
 
-        return view('admin.programing.detail', compact('programing'));
+        return view('admin.english.detail', compact('english'));
     }
 
     /**
@@ -81,12 +81,12 @@ class ProgramingController extends BaseController
      */
     public function edit($id)
     {
-        $programing = Programing::findOrFail($id);
+        $english = English::findOrFail($id);
 
-        $tags = $this->getProgramingTags();
-        $programing_tags = $programing->tags->pluck('id')->all();
+        $tags = $this->getEnglishTags();
+        $english_tags = $english->tags->pluck('id')->all();
 
-        return view('admin.programing.edit', compact('programing', 'programing_tags', 'tags'));
+        return view('admin.english.edit', compact('english', 'english_tags', 'tags'));
     }
 
     /**
@@ -98,26 +98,26 @@ class ProgramingController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $programing = Programing::findOrFail($id);
+        $english = English::findOrFail($id);
 
-        $programing_data = $request->all();
+        $english_data = $request->all();
 
         if ($file = $request->file('image_id')) {
             $image_name = time() . $file->getClientOriginalName();
             $file->move('images', $image_name);
             $image = Image::create(['path' => $image_name]);
-            $programing_data['image_id'] = $image->id;
-            if ($programing->image) {
-                unlink(public_path() . $programing->image->path);
+            $english_data['image_id'] = $image->id;
+            if ($english->image) {
+                unlink(public_path() . $english->image->path);
             }
         }
 
-        $programing->update($programing_data);
+        $english->update($english_data);
 
-        $this->attachProgramingTag($programing, $request);
+        $this->attachEnglishTag($english, $request);
 
 
-        return redirect()->route('admin.programing.index');
+        return redirect()->route('admin.english.index');
     }
 
     /**
@@ -132,34 +132,34 @@ class ProgramingController extends BaseController
     }
 
     /**
-    * プログラミングのタグを取得
-    */
-    private function getProgramingTags()
+     * 英語のタグを取得
+     */
+    private function getEnglishTags()
     {
-        $tags = Tag::with('programing')->get();
-        $programing_tags = [];
+        $tags = Tag::with('english')->get();
+        $english_tags = [];
         foreach ($tags as $tag) {
-            if (($tag->programing->isNotEmpty())) {
-                $programing_tags["$tag->id"] = $tag->name;
+            if (($tag->english->isNotEmpty())) {
+                $english_tags["$tag->id"] = $tag->name;
             }
         }
-        return $programing_tags;
+        return $english_tags;
     }
 
     /**
-     * プログラミングにタグづけ
+     * 英語にタグづけ
      */
-    private function attachProgramingTag($programing, $request)
+    private function attachEnglishTag($english, $request)
     {
         if($request->tag) {
-            $programing->tags()->sync($request->tag);
+            $english->tags()->sync($request->tag);
         }
         if ($tags = $request->name) {
             foreach ($tags as $tag) {
                 $new_tag = Tag::create(['name'=>"$tag"]);
                 $tags_id[] = $new_tag->id;
             }
-            $programing->tags()->attach($tags_id);
+            $english->tags()->attach($tags_id);
         }
     }
 }

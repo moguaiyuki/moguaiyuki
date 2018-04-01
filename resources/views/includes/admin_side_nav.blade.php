@@ -100,6 +100,20 @@
                 <!-- /.nav-second-level -->
             </li>
 
+            <!-- 英語 -->
+            <li>
+                <a href="#"><i class="fa fa-wrench fa-fw"></i>英語<span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{route('admin.english.index')}}">一覧</a>
+                    </li>
+                    <li>
+                        <a href="{{route('admin.english.create')}}">登録</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+
             <li>
                 <a href="#"><i class="fa fa-wrench fa-fw"></i> Posts<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
