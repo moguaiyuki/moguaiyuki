@@ -15,7 +15,7 @@
 @stop
 
 @section('scripts')
-    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
 
     <script>
         var ctx = document.getElementById("myChart").getContext('2d');
@@ -25,7 +25,7 @@
                 labels: ["Posts", "Categories", "Comments"],
                 datasets: [{
                     label: 'Data of CMS',
-                    data: [{{$postsCount}}, {{$categoriesCount}}, {{$commentsCount}}],
+                    data: [10, 15, 13],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -49,6 +49,6 @@
                 }
             }
         });
-    </script>--}}
+    </script>
 
 @stop
