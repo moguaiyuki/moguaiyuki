@@ -22,6 +22,14 @@ class TedReview extends Model
     }
 
     /**
+     * Userを取得
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array

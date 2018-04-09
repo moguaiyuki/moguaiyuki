@@ -14,6 +14,22 @@ class BookReview extends Model
     ];
 
     /**
+     * Bookを取得
+     */
+    public function book()
+    {
+        return $this->belongsTo('App\Book');
+    }
+
+    /**
+     * Userを取得
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
      * Return the sluggable configuration array for this model.
      *
      * @return array

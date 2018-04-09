@@ -1,14 +1,71 @@
-
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-
 // Variables
 @import "variables";
-
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+// Font Awesome
+@import "node_modules/font-awesome-scss/scss/font-awesome.scss";
+
+$icon_size: 55px;
 
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.navbar {
+  .nav-link {
+    font-size: 14px;
+    text-transform: uppercase;
+    padding-left: 1em !important;
+    padding-right: 1em !important;
+  }
+
+  .nav-item.active {
+    border-left: #444 3px solid;
+  }
+}
+
+.carousel-item {
+  height: 450px;
+}
+
+.fa {
+  font-size: $icon_size;
+}
+
+footer#main-footer {
+  background: #000;
+  color: #fff;
+}
+
+.bg-black {
+  background: #000;
+  color: #fff;
+}
+
+#main-header {
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .port-item {
+    width: 25%;
+    .fa {
+      font-size: 2em;
+    }
+  }
+  .port-item:hover{
+    opacity:0.8;
+    cursor:pointer;
+  }
+}
+
+@media (min-width:1199px) {
+  .port-item{
+    padding:5.1em !important;
+  }
+  
 }

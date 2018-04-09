@@ -39,7 +39,7 @@
     @include('includes.admin_nav')
 
 
-    <div class="navbar-default sidebar" role="navigation">
+    {{--<div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li>
@@ -66,7 +66,7 @@
 
         </div>
 
-    </div>
+    </div>--}}
 
 </div>
 
