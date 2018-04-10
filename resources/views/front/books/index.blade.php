@@ -30,10 +30,14 @@
                                         <img src="{{$item->image ? $item->image->path : ''}}" alt=""
                                              class="card-img-top img-fluid">
                                         <div class="card-body">
+
                                             <h4 class="card-title">{{$item->title}}</h4>
+
                                             <small class="text-muted">{{$item->created_at->diffForHumans()}}</small>
+
                                             @if ($item->review)
-                                            <a href="{{route('books.show', $item->review->slug)}}" class="btn btn-info btn-sm float-right">感想を見る</a>
+                                                <a href="{{route('books.show', $item->review->slug)}}"
+                                                   class="btn btn-info btn-sm float-right">感想を見る</a>
                                             @endif
                                             <hr>
                                             {{--<p class="card-text">{!! str_limit($item->content, 30) !!}</p>--}}
@@ -41,7 +45,8 @@
                                         {{--<hr>--}}
                                         <div>
                                             @foreach($item->tags as $tag)
-                                                <a href="{{route('books.search-tag',$tag->id)}}" class="btn btn-outline-info btn-sm m-2">{{$tag->name}}</a>
+                                                <a href="{{route('books.search-tag',$tag->id)}}"
+                                                   class="btn btn-outline-info btn-sm m-2">{{$tag->name}}</a>
                                             @endforeach
                                         </div>
                                     </div>

@@ -69,4 +69,20 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    /**
+     *登録は許可しない
+     */
+    public function register(Request $request)
+    {
+        return redirect()->route('index');
+    }
+
+    /**
+     * 登録は許可しない
+     */
+    public function showRegistrationForm()
+    {
+        return redirect()->route('index');
+    }
 }

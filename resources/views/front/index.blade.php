@@ -27,19 +27,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4 text-center">
-                <i class="fa fa-cog mb-2"></i>
+                <i class="fa fa-book mb-2"></i>
                 <h3>本</h3>
                 <p>本を読んだらすぐにアウトプットする習慣をつけるために読んだ本のまとめや読みたい本等を個人的にメモしていきます。</p>
                 <a class="btn btn-dark btn-sm" href="{{route('books.index')}}">記事を見る</a>
             </div>
             <div class="col-md-4 mb-4 text-center">
-                <i class="fa fa-cloud mb-2"></i>
+                <i class="fa fa-comment mb-2"></i>
                 <h3>TED TALK</h3>
                 <p>主にテクノロジー系の話題をピックアップしますが、ジャンル問わずに個人的に面白かったTED TALKもまとめていきます。</p>
                 <a class="btn btn-dark btn-sm" href="{{route('ted-talks.index')}}">記事を見る</a>
             </div>
             <div class="col-md-4 mb-4 text-center">
-                <i class="fa fa-cart-plus mb-2"></i>
+                <i class="fa fa-laptop mb-2"></i>
                 <h3>プログラミング</h3>
                 <p>PHP,Laravel,python,swift等について書いてます。動画で学ぶ好きなので、動画講義の紹介なんかもしています。</p>
                 <a class="btn btn-dark btn-sm" href="{{route('programing.index')}}">記事を見る</a>
@@ -52,19 +52,19 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 mb-4 text-center">
-                <i class="fa fa-cloud mb-2"></i>
+                <i class="fa fa-adn mb-2"></i>
                 <h3>英語</h3>
                 <p>個人的な英語勉強のログとともに、TOEICの勉強法やその他普段の英語の勉強法とか書いていきます。</p>
                 <a class="btn btn-dark btn-sm" href="{{route('english.index')}}">記事を見る</a>
             </div>
             <div class="col-md-4 mb-4 text-center">
-                <i class="fa fa-cart-plus mb-2"></i>
+                <i class="fa fa-shopping-cart mb-2"></i>
                 <h3>マーケティング</h3>
                 <p>普段のアルバイトでのマーケティング業務での気づきや、参考となる記事、動画について書いていきます。</p>
                 <a class="btn btn-dark btn-sm" href="{{route('marketing.index')}}">記事を見る</a>
             </div>
             <div class="col-md-4 mb-4 text-center">
-                <i class="fa fa-cog mb-2"></i>
+                <i class="fa fa-plane mb-2"></i>
                 <h3>旅行</h3>
                 <p>自分の旅行のログです。行った国の食べ物や景色を紹介していきたいです。</p>
                 <a class="btn btn-dark btn-sm" href="{{route('travels.index')}}">記事を見る</a>

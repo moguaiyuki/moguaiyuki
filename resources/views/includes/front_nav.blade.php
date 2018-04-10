@@ -12,10 +12,21 @@
                     <a href="{{route('index')}}" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="about.html" class="nav-link">About Me</a>
+                    <a href="{{route('profile')}}" class="nav-link">About Me</a>
                 </li>
                 <li class="nav-item">
-                    <a href="blog.html" class="nav-link">Blog</a>
+                    <a href="#home-icons" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
+                    <div class="dropdown-menu bg-dark">
+                        <a class="dropdown-item" href="{{route('books.index')}}">本</a>
+                        <a class="dropdown-item" href="{{route('ted-talks.index')}}">TED TALK</a>
+                        <a class="dropdown-item" href="{{route('programing.index')}}">プログラミング</a>
+                        <a class="dropdown-item" href="{{route('english.index')}}">英語</a>
+                        <a class="dropdown-item" href="{{route('marketing.index')}}">マーケティング</a>
+                        <a class="dropdown-item" href="{{route('travels.index')}}">旅行</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="contact.html" class="nav-link">Contact</a>

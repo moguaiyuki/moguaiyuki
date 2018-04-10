@@ -31,6 +31,12 @@
             <li class="divider"></li>
             <li><a href="{{ url('/logout') }}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
             </li>
+            <li>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <input type="submit" value="logout">
+                </form>
+            </li>
         </ul>
         <!-- /.dropdown-user -->
     </li>

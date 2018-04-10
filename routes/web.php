@@ -68,9 +68,9 @@ Route::get('/home', 'HomeController@index')->name('home');
  * ルート名　admin. prefix
  * TODO: ミドルウェアの設定
  */
-Route::name('admin.')->prefix('admin')->namespace('Admin')->group(function () {
+Route::middleware('auth')->name('admin.')->prefix('admin')->namespace('Admin')->group(function () {
 
-    Route::get('/', 'HomeController@index')->name('admin')->middleware('auth');
+    Route::get('/', 'HomeController@index')->name('admin');
 
     Route::resource('users', 'UsersController');
 
