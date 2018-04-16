@@ -11,6 +11,17 @@ use App\Http\Controllers\Controller;
 class BooksController extends BaseController
 {
     /**
+     * 新しいBooksControllerインスタンスの生成
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $tags = $this->getBookTags();
+        view()->share("tags", $tags);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -29,9 +40,7 @@ class BooksController extends BaseController
      */
     public function create()
     {
-        $book_tags = $this->getBookTags();
-
-        return view('admin.books.create', compact('book_tags'));
+        return view('admin.books.create');
     }
 
     /**
@@ -44,7 +53,13 @@ class BooksController extends BaseController
     {
         $book_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
+        if (isset($book_data["image_url"])) {
+            $data = file_get_contents($book_data["image_url"]);
+            $image_name = time() . $book_data['title'];
+            file_put_contents('images/'. $image_name, $data);
+            $image = Image::create(['path' => $image_name]);
+            $book_data['image_id'] = $image->id;
+        } elseif ($file = $request->file('image_id')) {
             $book_data['image_id'] = $this->imageUpload($file);
         }
 
@@ -83,10 +98,9 @@ class BooksController extends BaseController
     public function edit($id)
     {
         $book = Book::findOrFail($id);
-        $tags = $this->getBookTags();
         $book_tags = $book->tags->pluck('id')->all();
 
-        return view('admin.books.edit', compact('book', 'book_tags', 'tags'));
+        return view('admin.books.edit', compact('book', 'book_tags'));
     }
 
     /**
@@ -164,5 +178,18 @@ class BooksController extends BaseController
             }
             $book->tags()->attach($tags_id);
         }
+    }
+
+    /**
+    * google ap　から本の情報を取得
+    */
+
+    public function searchBooksInfo(Request $request)
+    {
+        $post_data = $request->all();
+        $data = "https://www.googleapis.com/books/v1/volumes?q=".$post_data["book"];
+        $json = file_get_contents($data);
+        $json_decode = json_decode($json, true);
+        return view('admin.books.create', compact("json_decode"));
     }
 }

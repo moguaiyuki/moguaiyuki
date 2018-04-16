@@ -66,7 +66,6 @@ Route::get('/home', 'HomeController@index')->name('home');
  * "App\Http\Controllers\Admin"名前空間下のコントローラを使用
  * admin/ prefix
  * ルート名　admin. prefix
- * TODO: ミドルウェアの設定
  */
 Route::middleware('auth')->name('admin.')->prefix('admin')->namespace('Admin')->group(function () {
 
@@ -85,6 +84,7 @@ Route::middleware('auth')->name('admin.')->prefix('admin')->namespace('Admin')->
 
     Route::name('books.')->prefix('books')->group(function () {
         Route::resource('reviews', 'BookReviewsController');
+        Route::post('info', 'BooksController@searchBooksInfo')->name('info');
         Route::get('reviews/register/{book_id}', 'BookReviewsController@register')->name('reviews.register');
     });
 

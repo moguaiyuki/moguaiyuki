@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <th>URL</th>
-                <td><a href="{{$book->amazon_link}}">{{$book->amazon_link}}</a></td>
+                <td><a href="{{$book->amazon_url}}">{{$book->amazon_url}}</a></td>
             </tr>
             <tr>
                 <th>タグ</th>

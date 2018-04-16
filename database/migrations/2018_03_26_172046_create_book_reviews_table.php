@@ -23,6 +23,7 @@ class CreateBookReviewsTable extends Migration
             $table->string('slug');
             $table->timestamps();
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
+            $table->softDeletes();
         });
     }
 

@@ -23,6 +23,7 @@ class CreateEnglishesTable extends Migration
             $table->integer('image_id')->nullable()->index();
             $table->integer('is_published')->comment('0:下書き,1:公開');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

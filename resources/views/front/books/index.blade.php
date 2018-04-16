@@ -22,33 +22,35 @@
             <div class="row">
 
                 <div class="col-lg-8">
-                    @foreach(array_chunk($books->all(), 3, true) as $row)
+                    @foreach(array_chunk($books->all(), 5, true) as $row)
                         <div class="row">
                             <div class="card-deck">
                                 @foreach($row as $item)
                                     <div class="card mb-3">
-                                        <img src="{{$item->image ? $item->image->path : ''}}" alt=""
-                                             class="card-img-top img-fluid">
+                                        <a href="{{$item->review ? route('books.show', $item->review->slug) : '#'}}">
+                                            <img src="{{$item->image ? $item->image->path : ''}}" alt=""
+                                                 class="card-img-top img-fluid">
+                                        </a>
                                         <div class="card-body">
 
-                                            <h4 class="card-title">{{$item->title}}</h4>
+                                            {{--<h4 class="card-title">{{$item->title}}</h4>--}}
 
-                                            <small class="text-muted">{{$item->created_at->diffForHumans()}}</small>
+                                            {{--<small class="text-muted">{{$item->created_at->diffForHumans()}}</small>--}}
 
                                             @if ($item->review)
                                                 <a href="{{route('books.show', $item->review->slug)}}"
                                                    class="btn btn-info btn-sm float-right">感想を見る</a>
                                             @endif
-                                            <hr>
+                                            {{--<hr>--}}
                                             {{--<p class="card-text">{!! str_limit($item->content, 30) !!}</p>--}}
                                         </div>
                                         {{--<hr>--}}
-                                        <div>
+                                        {{--<div>
                                             @foreach($item->tags as $tag)
                                                 <a href="{{route('books.search-tag',$tag->id)}}"
                                                    class="btn btn-outline-info btn-sm m-2">{{$tag->name}}</a>
                                             @endforeach
-                                        </div>
+                                        </div>--}}
                                     </div>
                                 @endforeach
                             </div>

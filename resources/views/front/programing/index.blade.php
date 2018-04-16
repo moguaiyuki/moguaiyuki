@@ -27,8 +27,10 @@
                             <div class="card-deck">
                                 @foreach($row as $item)
                                     <div class="card mb-3">
-                                        <img src="{{$item->image ? $item->image->path : ''}}" alt=""
-                                             class="card-img-top img-fluid">
+                                        <a href="{{route('programing.show', $item->slug)}}">
+                                            <img src="{{$item->image ? $item->image->path : ''}}" alt=""
+                                                 class="card-img-top img-fluid">
+                                        </a>
                                         <div class="card-body">
                                             <h4 class="card-title">{{$item->title}}</h4>
                                             <small class="text-muted">{{$item->created_at->diffForHumans()}}</small>
@@ -40,7 +42,8 @@
                                         {{--<hr>--}}
                                         <div>
                                             @foreach($item->tags as $tag)
-                                                <a href="{{route('programing.search-tag',$tag->id)}}" class="btn btn-outline-info btn-sm m-2">{{$tag->name}}</a>
+                                                <a href="{{route('programing.search-tag',$tag->id)}}"
+                                                   class="btn btn-outline-info btn-sm m-2">{{$tag->name}}</a>
                                             @endforeach
                                         </div>
                                     </div>

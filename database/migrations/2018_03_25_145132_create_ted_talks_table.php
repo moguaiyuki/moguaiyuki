@@ -24,6 +24,7 @@ class CreateTedTalksTable extends Migration
             $table->date('presented_at')->comment('プレゼン公開日')->nullable();
             $table->string('url');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

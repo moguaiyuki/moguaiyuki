@@ -53,6 +53,7 @@
 
             </div>
             <!-- /.row -->
+            @include('includes.comment')
         </div>
     </section>
 @stop

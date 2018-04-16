@@ -23,6 +23,7 @@ class CreateBooksTable extends Migration
             $table->integer('yonda')->default(0)->comment('読んだ人はクリック');
             $table->string('amazon_url')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -51,5 +51,6 @@
 
         </div>
         <!-- /.row -->
+        @include('includes.comment')
     </div>
 @stop

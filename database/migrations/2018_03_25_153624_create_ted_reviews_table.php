@@ -23,6 +23,7 @@ class CreateTedReviewsTable extends Migration
             $table->string('slug');
             $table->timestamps();
             $table->foreign('talk_id')->references('id')->on('ted_talks')->onDelete('cascade');
+            $table->softDeletes();
         });
     }
 

@@ -25,6 +25,7 @@ class CreateTravelsTable extends Migration
             $table->integer('is_published')->default(0)->unsigned()->comment('0:下書き,1:公開');
             $table->string('slug')->comment('国名でslugを作成');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
