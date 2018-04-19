@@ -10,8 +10,9 @@
             <th>ID</th>
             <th>画像</th>
             <th>タイトル</th>
+            <th>レビュー記事</th>
             <th>状態</th>
-            <th>yonda</th>
+            <th>本棚</th>
             <th>タグ</th>
             <th>編集・削除</th>
         </tr>
@@ -22,20 +23,36 @@
                 <td>{{$book->id}}</td>
                 <td><img height="50" src="{{$book->image ? $book->image->path : ''}}" alt=""></td>
                 <td><a href="{{route('admin.books.show', $book->id)}}">{{$book->title}}</a></td>
-                <td>{{$book->status}}</td>
-                <td>{{$book->yonda}}</td>
+                <td>@if($book->review)<a href="{{route('books.show', $book->review->slug)}}">レビュー</a>@else <a href="{{route('admin.books.reviews.register', $book->id)}}">レビュー登録</a> @endif</td>
+                <td>{{config('admin.book_status')[$book->status]}}</td>
+                <td>{{$book->is_bookshelf==1 ? "本棚" : ""}}</td>
                 <td>
                     @foreach ($book->tags as $tag)
                         {{$loop->last ? $tag->name : $tag->name . ','}}
                     @endforeach
                 </td>
-                <td><a href="{{route('admin.books.edit', $book->id)}}">編集</a>・削除</td>
+                <td>
+                    <a href="{{route('admin.books.edit', $book->id)}}">編集</a>
+                    ・
+                    <a class="dropdown-item" href="#"
+                       onclick="event.preventDefault();
+                                                     document.getElementById({{$book->id}}).submit();">
+                        削除
+                    </a>
+                   {{-- <form id="delete" action="{{ route('admin.books.destroy', $book->id) }}"
+                          method="POST" style="display: none;">
+                        @csrf
+                    </form>--}}
+                    {!! Form::open(['method'=>'DELETE', 'action'=>['Admin\BooksController@destroy', $book->id], 'id'=>$book->id, 'style'=>'display: none;']) !!}
+                    {!! Form::submit('') !!}
+                    {!! Form::close() !!}
+                </td>
             </tr>
         @empty
             <tr>
                 <td>本はありません</td>
             </tr>
-        @endif
+        @endforelse
         </tbody>
     </table>
 

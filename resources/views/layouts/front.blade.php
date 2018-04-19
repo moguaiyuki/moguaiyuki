@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Moguai Blog</title>
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
@@ -23,7 +23,7 @@
 
 @include('includes.front_footer')
 
-
+<script src="{{ asset('js/app.js') }}"></script>
 @yield('script')
 </body>
 </html>

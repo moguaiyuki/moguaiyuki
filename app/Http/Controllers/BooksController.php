@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class BooksController extends Controller
 {
-    private $perPage = 6;
+    private $perPage = 20;
 
     /**
      * 新しいBooksControllerインスタンスの生成

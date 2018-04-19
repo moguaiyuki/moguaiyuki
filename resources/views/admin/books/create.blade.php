@@ -28,7 +28,7 @@
 
                                 <h4 class="well-title">{{$item['volumeInfo']['title']}}</h4>
                                 @if (isset($item['volumeInfo']['authors']))
-                                <small class="text-muted">written by {{$item['volumeInfo']['authors'][0]}}</small>
+                                    <small class="text-muted">written by {{$item['volumeInfo']['authors'][0]}}</small>
                                 @endif
                                 @if (isset($item['volumeInfo']['description']))
                                     <hr>
@@ -38,9 +38,9 @@
                                 {!! Form::open(['method'=>'POST', 'action'=>'Admin\BooksController@store', 'files'=>true]) !!}
                                 {!! Form::hidden('title', $item['volumeInfo']['title'], ['class'=>'form-control']) !!}
                                 @if (isset($item['volumeInfo']['authors']))
-                                {!! Form::hidden('author', $item['volumeInfo']['authors'][0], ['class'=>'form-control']) !!}
-                                @en
-                                    @if (isset($item['volumeInfo']['description']))
+                                    {!! Form::hidden('author', $item['volumeInfo']['authors'][0], ['class'=>'form-control']) !!}
+                                @endif
+                                @if (isset($item['volumeInfo']['description']))
                                     {!! Form::hidden('description', $item['volumeInfo']['description'] , ['class'=>'form-control']) !!}
                                 @endif
                                 @if (isset($item['volumeInfo']['imageLinks']))

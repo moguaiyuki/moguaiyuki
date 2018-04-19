@@ -42,6 +42,7 @@
                 <td>@if($book->is_bookshelf) 本棚にあり @endif</td>
             </tr>
         </table>
+        <a class="btn btn-primary" href="{{route('admin.books.edit', $book->id)}}">編集</a>
     </div>
 
     @if ($book->review)
@@ -62,7 +63,11 @@
                     <td>{{config('admin.publish_status')[$book->review->status]}}</td>
                 </tr>
             </table>
+            <a class="btn btn-primary" href="{{route('admin.books.reviews.edit', $book->id)}}">レビュー編集</a>
         </div>
-
+    @else
+        <div class="col-sm-7">
+            <a class="btn btn-primary" href="{{route('admin.books.reviews.register', $book->id)}}">レビュー登録</a>
+        </div>
     @endif
 @stop

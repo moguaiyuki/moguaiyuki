@@ -145,7 +145,15 @@ class BooksController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $book = Book::findOrFail($id);
+
+        /*if ($book->image) {
+            unlink(public_path() . $book->image->path);
+        }*/
+
+        $book->delete();
+
+        return redirect()->back();
     }
 
     /**

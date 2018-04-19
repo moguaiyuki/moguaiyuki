@@ -22,41 +22,57 @@
             <div class="row">
 
                 <div class="col-lg-8">
-                    @foreach(array_chunk($books->all(), 5, true) as $row)
-                        <div class="row">
-                            <div class="card-deck">
-                                @foreach($row as $item)
-                                    <div class="card mb-3">
-                                        <a href="{{$item->review ? route('books.show', $item->review->slug) : '#'}}">
-                                            <img src="{{$item->image ? $item->image->path : ''}}" alt=""
-                                                 class="card-img-top img-fluid">
-                                        </a>
-                                        <div class="card-body">
-
-                                            {{--<h4 class="card-title">{{$item->title}}</h4>--}}
-
-                                            {{--<small class="text-muted">{{$item->created_at->diffForHumans()}}</small>--}}
-
-                                            @if ($item->review)
-                                                <a href="{{route('books.show', $item->review->slug)}}"
-                                                   class="btn btn-info btn-sm float-right">感想を見る</a>
-                                            @endif
-                                            {{--<hr>--}}
-                                            {{--<p class="card-text">{!! str_limit($item->content, 30) !!}</p>--}}
-                                        </div>
-                                        {{--<hr>--}}
-                                        {{--<div>
-                                            @foreach($item->tags as $tag)
-                                                <a href="{{route('books.search-tag',$tag->id)}}"
-                                                   class="btn btn-outline-info btn-sm m-2">{{$tag->name}}</a>
-                                            @endforeach
-                                        </div>--}}
-                                    </div>
-                                @endforeach
-                            </div>
+                    <!-- Book filter -->
+                    <div class="col-md-12">
+                        <div id="isotope-filters">
+                            <button data-filter="*" class="btn active"><span>本棚</span></button>
+                            <button data-filter=".review" class="btn"><span>レビュー</span></button>
+                            <button data-filter=".book_status_1" class="btn"><span>読んでる</span></button>
+                            <button data-filter=".book_status_2" class="btn"><span>読んだ</span></button>
+                            <button data-filter=".book_status_0" class="btn"><span>読みたい</span></button>
+                            <button data-filter=".book_status_3" class="btn"><span>積読</span></button>
                         </div>
-                    @endforeach
+                    </div>
+                    <!-- Book section -->
+                    <section id="book-wrapper">
+                        <div class="container">
+                            @foreach(array_chunk($books->all(), 5, true) as $row)
+                                <div class="row isotope-container">
+                                    @foreach($row as $item)
+                                        <div class="col-md-3 col-xs-2 {{'book_status_'.$item->status}} {{$item->review ? 'review' : ''}}">
+                                            <!--Book Item-->
+                                            <div class="book-item">
+                                                <img src="{{$item->image ? $item->image->path : ''}}" alt="book01"
+                                                     class="img-responsive">
 
+                                                <div class="book-item-overlay">
+                                                    <div class="book-item-details text-center">
+
+                                                        <!-- book Header -->
+                                                        <h3>{{$item->title}}</h3>
+
+                                                        <!-- Book Strips -->
+                                                        <span></span>
+
+                                                        <!-- Book Description -->
+                                                        @if ($item->review)
+                                                            <p>
+                                                                <a class="btn btn-outline-info" href="{{route('books.show', $item->review->slug)}}">記事を見る</a>
+                                                            </p>
+                                                        @else
+                                                            <p>
+                                                                <a class="btn btn-outline-info" href="{{$item->amazon_url}}">amazonで見る</a>
+                                                            </p>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endforeach
+                        </div>
+                    </section>
                 </div>
                 <div class="col-lg-4">
                     <!-- Blog Categories Well -->
@@ -77,4 +93,34 @@
 
     </section>
 
+@stop
+
+@section('script')
+    <!-- Isotope -->
+    <script src="{{ asset('js/jquery.js') }}"></script>
+    {{--<script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>--}}
+    <script src="{{ asset('js/isotope.pkgd.min.js') }}"></script>
+    <script>
+        /* ============================================
+                       Books filter
+        =============================================== */
+        $(window).on('load', function () {
+            //Initialize Isotope
+            $('.isotope-container').isotope({});
+            // filter items on button click
+            $('#isotope-filters').on('click', 'button', function () {
+
+                // get filter value
+                var filterValue = $(this).attr('data-filter');
+
+                //filter books
+                $('.isotope-container').isotope({filter: filterValue});
+
+                //active button
+                $('#isotope-filters').find('.active').removeClass('active');
+                $(this).addClass('active');
+
+            });
+        });
+    </script>
 @stop

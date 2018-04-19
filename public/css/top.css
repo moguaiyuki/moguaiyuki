@@ -34,11 +34,129 @@
     color: #000000;
 }
 
-/*
-a {
-    text-decoration: none;
+/* ============================================
+               Books
+=============================================== */
+
+/*book item*/
+.book-item {
+    overflow: hidden;
+    position: relative;
 }
 
-a {
-    background-color: transparent;
-}*/
+/* filters css */
+#isotope-filters {
+    margin-bottom: 10px;
+    padding: 20px 25px 20px 0;
+}
+
+#isotope-filters button {
+    font-family: "Raleway", sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    padding-right: 35px;
+    outline: 0;
+}
+
+#isotope-filters button span {
+    display: block;
+    padding-bottom: 5px;
+}
+
+#isotope-filters button.active span {
+    color: #f4c613;
+    border-bottom: 3px solid #f4c613;
+}
+
+/*zoom effect*/
+.book-item img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    -webkit-transition: -webkit-transform .5s ease;
+    transision: -webkit-transform .5s ease;
+    transision: transform .5s ease;
+    transision: transform .5s ease, -webkit-transform .5s ease;
+}
+
+.book-item:hover img {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+/*Overlay effect*/
+.book-item-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(14, 14, 17, 0.8);
+    /*cursor: -webkit-pointer;*/
+    cursor: pointer;
+    opacity: 0;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+/*Item Details Effect*/
+.book-item-details {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.book-item-details h3 {
+    color: #f4c613;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin: 0;
+    padding: 0;
+    -webkit-transform: translateY(-20%);
+    transform: translateY(-20%);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.book-item-details span {
+    display: inline-block;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    height: 6px;
+    width: 30px;
+    margin: 11px auto 5px auto;
+}
+
+.book-item-details p {
+    font-size: 15px;
+    color: #fff;
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    -webkit-transform: translateY(20%);
+    transform: translateY(20%);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+/*Show Overlay on mouse over*/
+.book-item:hover .book-item-details h3 {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.book-item:hover .book-item-details p {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.book-item:hover .book-item-overlay {
+    opacity: 1;
+}
