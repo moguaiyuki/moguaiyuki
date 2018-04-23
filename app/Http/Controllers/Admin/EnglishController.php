@@ -128,7 +128,15 @@ class EnglishController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $english = English::findOrFail($id);
+
+        if ($english->image) {
+            unlink(public_path() . $english->image->path);
+        }
+
+        $english->delete();
+
+        return redirect()->route('admin.english.index');
     }
 
     /**

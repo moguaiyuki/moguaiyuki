@@ -134,7 +134,15 @@ class TravelsController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $travel = Travel::findOrFail($id);
+
+        if ($travel->image) {
+            unlink(public_path() . $travel->image->path);
+        }
+
+        $travel->delete();
+
+        return redirect()->route('admin.travels.index');
     }
 
     /**
