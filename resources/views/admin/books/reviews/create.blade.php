@@ -8,7 +8,7 @@
     {!! Form::open(['method'=>'POST', 'action'=>'Admin\BookReviewsController@store']) !!}
     <input type="hidden" name="book_id" value="{{$book_id}}">
     <div class="form-group">
-        {!! Form::label('title', 'タイトル:') !!}
+        {!! Form::label('title', 'タイトル(slug用のため英語表記):') !!}
         {!! Form::text('title', null, ['class'=>'form-control']) !!}
     </div>
     <div class="form-group">

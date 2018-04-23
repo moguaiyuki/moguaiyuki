@@ -15,7 +15,7 @@ class CreateTedReviewsTable extends Migration
     {
         Schema::create('ted_reviews', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title')->comment('slug用タイトル');
             $table->text('content');
             $table->integer('user_id');
             $table->integer('status')->default(0)->comment('0:下書き,1:公開')->unsigned();

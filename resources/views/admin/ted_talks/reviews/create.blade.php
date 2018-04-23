@@ -8,7 +8,7 @@
     {!! Form::open(['method'=>'POST', 'action'=>'Admin\TedReviewsController@store']) !!}
     <input type="hidden" name="talk_id" value="{{$talk_id}}">
     <div class="form-group">
-        {!! Form::label('title', 'タイトル:') !!}
+        {!! Form::label('title', 'タイトル(slug用タイトルのため英語表記):') !!}
         {!! Form::text('title', null, ['class'=>'form-control']) !!}
     </div>
     <div class="form-group">
