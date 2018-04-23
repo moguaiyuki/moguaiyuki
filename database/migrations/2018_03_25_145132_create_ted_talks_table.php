@@ -22,7 +22,7 @@ class CreateTedTalksTable extends Migration
             $table->integer('status')->comment('0:見たい,1:見た')->default(0)->unsigned();
             $table->integer('is_favorite')->comment('0:普通,1:お気に入り')->default(0)->unsigned();
             $table->date('presented_at')->comment('プレゼン公開日')->nullable();
-            $table->string('url');
+            $table->text('url')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

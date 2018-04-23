@@ -15,13 +15,14 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('author');
+            $table->string('title')->comment('タイトル');
+            $table->string('author')->comment('著者');
             $table->integer('image_id')->nullable()->index();
             $table->integer('status')->default(0)->comment('0:読みたい,1:読んでる,2:読んだ,3:積読');
-            $table->integer('is_bookshelf')->default(0)->comment('0:持ってない,1:本棚');
+            $table->integer('is_bookshelf')->default(0)->comment('0:持ってない,1:本棚にあり');
             $table->integer('yonda')->default(0)->comment('読んだ人はクリック');
-            $table->string('amazon_url')->nullable();
+            $table->text('amazon_url')->nullable()->comment('amazon url');
+            $table->text('description')->nullable()->comment('概要');
             $table->timestamps();
             $table->softDeletes();
         });

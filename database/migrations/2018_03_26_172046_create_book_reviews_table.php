@@ -16,7 +16,7 @@ class CreateBookReviewsTable extends Migration
         Schema::create('book_reviews', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('book_id')->unsigned()->index();
-            $table->string('title');
+            $table->string('title')->comment('slug用タイトル');
             $table->string('content');
             $table->integer('status')->unsigned()->comment('0:下書き,1:公開');
             $table->integer('user_id');
