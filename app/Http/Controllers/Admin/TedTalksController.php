@@ -133,11 +133,19 @@ class TedTalksController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $talk = TedTalk::findOrFail($id);
+
+        if ($talk->image) {
+            unlink(public_path() . $talk->image->path);
+        }
+
+        $talk->delete();
+
+        return redirect()->route('admin.ted-talks.index');
     }
 
     /**
-    *TED関連のタグを全て取得
+     *TED関連のタグを全て取得
      *
      * @return $talk_tags
     */
@@ -154,7 +162,7 @@ class TedTalksController extends BaseController
     }
 
     /**
-    * TED TALKにタグをつける
+     * TED TALKにタグをつける
     */
     private function attachTalkTag($talk, $request)
     {

@@ -21,7 +21,17 @@
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
                 <td>{{$user->role ? $user->role->name : ''}}</td>
-                <td><a href="{{route('admin.users.edit', $user->id)}}">編集</a>・削除</td>
+                <td><a href="{{route('admin.users.edit', $user->id)}}">編集</a>
+                    ・
+                    <a class="dropdown-item" href="#"
+                       onclick="event.preventDefault();
+                               document.getElementById({{$user->id}}).submit();">
+                        削除
+                    </a>
+                    {!! Form::open(['method'=>'DELETE', 'action'=>['Admin\UsersController@destroy', $user->id], 'id'=>$user->id, 'style'=>'display: none;']) !!}
+                    {!! Form::submit('') !!}
+                    {!! Form::close() !!}
+                </td>
             </tr>
             @empty
             <tr>

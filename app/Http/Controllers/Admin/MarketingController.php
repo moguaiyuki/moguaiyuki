@@ -127,7 +127,15 @@ class MarketingController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $marketing = Marketing::findOrFail($id);
+
+        if ($marketing->image) {
+            unlink(public_path() . $marketing->image->path);
+        }
+
+        $marketing->delete();
+
+        return redirect()->route('admin.marketing.index');
     }
 
     /**

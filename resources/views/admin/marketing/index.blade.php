@@ -10,7 +10,6 @@
             <th>ID</th>
             <th>画像</th>
             <th>タイトル</th>
-            <th>内容</th>
             <th>タグ</th>
             <th>公開ステータス</th>
             <th>登録日</th>
@@ -23,7 +22,6 @@
                 <td>{{$marketing->id}}</td>
                 <td><img width="50" src="{{$marketing->image ? $marketing->image->path : ''}}" alt=""></td>
                 <td><a href="{{route('admin.marketing.show', $marketing->id)}}">{{$marketing->title}}</a></td>
-                <td>{!! str_limit($marketing->content,30) !!}</td>
                 <td>
                     @foreach ($marketing->tags as $tag)
                         {{$loop->last ? $tag->name : $tag->name . ','}}
@@ -31,7 +29,18 @@
                 </td>
                 <td>{{config('admin.publish_status')[$marketing->is_published]}}</td>
                 <td>{{$marketing->created_at->format('Y/m/d')}}</td>
-                <td><a href="{{route('admin.marketing.edit', $marketing->id)}}">編集</a>・削除</td>
+                <td>
+                    <a href="{{route('admin.marketing.edit', $marketing->id)}}">編集</a>
+                    ・
+                    <a class="dropdown-item" href="#"
+                       onclick="event.preventDefault();
+                               document.getElementById({{$marketing->id}}).submit();">
+                        削除
+                    </a>
+                    {!! Form::open(['method'=>'DELETE', 'action'=>['Admin\MarketingController@destroy', $marketing->id], 'id'=>$marketing->id, 'style'=>'display: none;']) !!}
+                    {!! Form::submit('') !!}
+                    {!! Form::close() !!}
+                </td>
             </tr>
         @empty
             <tr>

@@ -128,7 +128,15 @@ class ProgramingController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $programing = Programing::findOrFail($id);
+
+        if ($programing->image) {
+            unlink(public_path() . $programing->image->path);
+        }
+
+        $programing->delete();
+
+        return redirect()->route('admin.programing.index');
     }
 
     /**

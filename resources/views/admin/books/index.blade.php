@@ -39,10 +39,6 @@
                                                      document.getElementById({{$book->id}}).submit();">
                         削除
                     </a>
-                   {{-- <form id="delete" action="{{ route('admin.books.destroy', $book->id) }}"
-                          method="POST" style="display: none;">
-                        @csrf
-                    </form>--}}
                     {!! Form::open(['method'=>'DELETE', 'action'=>['Admin\BooksController@destroy', $book->id], 'id'=>$book->id, 'style'=>'display: none;']) !!}
                     {!! Form::submit('') !!}
                     {!! Form::close() !!}

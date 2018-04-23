@@ -31,7 +31,17 @@
                     @endforeach
                 </td>
                 <td>{{$talk->presented_at ? $talk->presented_at->format('Y年m月') : ''}}</td>
-                <td><a href="{{route('admin.ted-talks.edit', $talk->id)}}">編集</a>・削除</td>
+                <td><a href="{{route('admin.ted-talks.edit', $talk->id)}}">編集</a>
+                    ・
+                    <a class="dropdown-item" href="#"
+                       onclick="event.preventDefault();
+                               document.getElementById({{$talk->id}}).submit();">
+                        削除
+                    </a>
+                    {!! Form::open(['method'=>'DELETE', 'action'=>['Admin\TedTalksController@destroy', $talk->id], 'id'=>$talk->id, 'style'=>'display: none;']) !!}
+                    {!! Form::submit('') !!}
+                    {!! Form::close() !!}
+                </td>
             </tr>
         @empty
             <tr>
