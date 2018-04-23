@@ -36,9 +36,10 @@
                     <!-- Book section -->
                     <section id="book-wrapper">
                         <div class="container">
-                            @foreach(array_chunk($books->all(), 5, true) as $row)
+                            {{--@foreach(array_chunk($books->all(), 4, true) as $row)--}}
                                 <div class="row isotope-container">
-                                    @foreach($row as $item)
+                                    {{--@foreach($row as $item)--}}
+                                    @foreach($books as $item)
                                         <div class="col-md-3 col-xs-2 {{'book_status_'.$item->status}} {{$item->review ? 'review' : ''}}">
                                             <!--Book Item-->
                                             <div class="book-item">
@@ -70,7 +71,7 @@
                                         </div>
                                     @endforeach
                                 </div>
-                            @endforeach
+                            {{--@endforeach--}}
                         </div>
                     </section>
                 </div>

@@ -189,13 +189,13 @@ class BooksController extends BaseController
     }
 
     /**
-    * google ap　から本の情報を取得
+    * google api　から本の情報を取得
     */
 
     public function searchBooksInfo(Request $request)
     {
         $post_data = $request->all();
-        $data = "https://www.googleapis.com/books/v1/volumes?q=".$post_data["book"];
+        $data = "https://www.googleapis.com/books/v1/volumes?q=".$post_data["book"]."&country=JP";
         $json = file_get_contents($data);
         $json_decode = json_decode($json, true);
         return view('admin.books.create', compact("json_decode"));
