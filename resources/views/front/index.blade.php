@@ -13,7 +13,7 @@
                         <div class="carousel-caption text-xs-center text-lg-right mb-5">
                             {{--<h1 class="display-3">Heading One</h1>--}}
                             <p class="lead">京都の情報系大学院生です。</p>
-                            <p class="lead">PHP,JavaScript,HTML,CSSを使ってサイトを作ったついでにブログを書いています。誰かの参考になれば幸いです。。</p>
+                            <p class="lead">PHP,JavaScript,HTML,CSSを使ってサイトを作ったついでにブログを書いています。</p>
                             <a href="{{route('profile')}}" class="btn btn-info btn-lg">プロフィールはこちら</a>
                         </div>
                     </div>
