@@ -14,7 +14,7 @@
                     <div class="d-flex flex-column">
                         <div class="p-5 bg-info text-white">
                             <div class="name d-flex flex-row justify-content-between align-items-center">
-                                <h1 class="display-4">大塚 悠貴</h1>
+                                <h1 class="display-4">Moguai</h1>
                                 <div><i class="fa fa-twitter"></i></div>
                                 <div><i class="fa fa-facebook"></i></div>
                                 <div><i class="fa fa-instagram"></i></div>
