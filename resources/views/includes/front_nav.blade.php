@@ -14,9 +14,6 @@
                 <li class="nav-item">
                     <a href="{{route('profile')}}" class="nav-link">About Me</a>
                 </li>
-                <li class="nav-item">
-                    <a href="#home-icons" class="nav-link">Blog</a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
                     <div class="dropdown-menu bg-dark">
