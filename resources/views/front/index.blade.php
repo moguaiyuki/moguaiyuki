@@ -1,5 +1,19 @@
 @extends('layouts.front')
 
+@section('head_meta')
+    <meta name="keywords" content="プログラミング,初心者,勉強法,動画,映画,TED,本">
+    <meta name="description" content="京都の情報系の大学院の学生がPHPでwebサイトを構築したついでに、プログラミングやTED TALKについてブログを書いています。">
+    <meta property="og:title" content="Moguai Blog">
+    <meta property="og:description" content="京都の情報系の大学院の学生がPHPでwebサイトを構築したついでに、プログラミングやTED TALKについてブログを書いています。">
+    <meta property="og:url" content="http://moguaiyuki.com/">
+    <!-- twitter 用-->
+    <meta property="og:image" content="{{asset('images/image2.jpg')}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {{--<meta name="twitter:site" content="@" />--}}
+@stop
+
+@section('title', 'Moguai Blog')
+
 @section('style')
     <link href="{{ asset('css/top.css') }}" rel="stylesheet">
 @stop
