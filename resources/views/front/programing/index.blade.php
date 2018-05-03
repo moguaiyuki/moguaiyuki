@@ -1,5 +1,19 @@
 @extends('layouts.front')
 
+@section('head_meta')
+    <meta name="keywords" content="プログラミング,swift,PHP,Laravel,python,udemy,udacity,coursera">
+    <meta name="description" content="PHP,Laravel,python,swift等について書いてます。動画で学ぶ好きなので、動画講義の紹介なんかもしています。">
+    <meta property="og:title" content="Moguai Blog Programing">
+    <meta property="og:description" content="PHP,Laravel,python,swift等について書いてます。動画で学ぶ好きなので、動画講義の紹介なんかもしています。">
+    <meta property="og:url" content="http://moguaiyuki.com/programing">
+    <!-- twitter 用-->
+    <meta property="og:image" content="{{asset('images/image2.jpg')}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {{--<meta name="twitter:site" content="@" />--}}
+@stop
+
+@section('title', 'Moguai Blog　Programing')
+
 @section('style')
     <!--TODO:トップとその他のcssファイルを分ける -->
     <link href="{{ asset('css/top.css') }}" rel="stylesheet">

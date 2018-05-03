@@ -1,5 +1,19 @@
 @extends('layouts.front')
 
+@section('head_meta')
+    <meta name="keywords" content="旅行">
+    <meta name="description" content="自分の旅行のログです。行った国の食べ物や景色を紹介していきたいです。">
+    <meta property="og:title" content="Moguai Blog Travels">
+    <meta property="og:description" content="自分の旅行のログです。行った国の食べ物や景色を紹介していきたいです。">
+    <meta property="og:url" content="http://moguaiyuki.com/travels">
+    <!-- twitter 用-->
+    <meta property="og:image" content="{{asset('images/image2.jpg')}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {{--<meta name="twitter:site" content="@" />--}}
+@stop
+
+@section('title', 'Moguai Blog Travels')
+
 @section('style')
     <!--TODO:トップとその他のcssファイルを分ける -->
     <link href="{{ asset('css/top.css') }}" rel="stylesheet">

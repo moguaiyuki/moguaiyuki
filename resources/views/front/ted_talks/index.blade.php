@@ -1,5 +1,19 @@
 @extends('layouts.front')
 
+@section('head_meta')
+    <meta name="keywords" content="TED TALK, 英語">
+    <meta name="description" content="主にテクノロジー系の話題をピックアップしますが、ジャンル問わずに個人的に面白かったTED TALKもまとめていきます。">
+    <meta property="og:title" content="Moguai Blog TED TALK">
+    <meta property="og:description" content="主にテクノロジー系の話題をピックアップしますが、ジャンル問わずに個人的に面白かったTED TALKもまとめていきます。">
+    <meta property="og:url" content="http://moguaiyuki.com/ted-talks">
+    <!-- twitter 用-->
+    <meta property="og:image" content="{{asset('images/image2.jpg')}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {{--<meta name="twitter:site" content="@" />--}}
+@stop
+
+@section('title', 'Moguai Blog TED TALK')
+
 @section('style')
     <!--TODO:トップとその他のcssファイルを分ける -->
     <link href="{{ asset('css/top.css') }}" rel="stylesheet">

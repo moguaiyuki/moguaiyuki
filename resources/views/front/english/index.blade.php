@@ -1,5 +1,19 @@
 @extends('layouts.front')
 
+@section('head_meta')
+    <meta name="keywords" content="英語,TOEIC">
+    <meta name="description" content="読んだ本のまとめや読みたい本等を個人的にメモしていきます。">
+    <meta property="og:title" content="Moguai Blog English">
+    <meta property="og:description" content="個人的な英語勉強のログとともに、TOEICの勉強法やその他普段の英語の勉強法とか書いていきます。">
+    <meta property="og:url" content="http://moguaiyuki.com/english">
+    <!-- twitter 用-->
+    <meta property="og:image" content="{{asset('images/image2.jpg')}}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    {{--<meta name="twitter:site" content="@" />--}}
+@stop
+
+@section('title', 'Moguai Blog English')
+
 @section('style')
     <!--TODO:トップとその他のcssファイルを分ける -->
     <link href="{{ asset('css/top.css') }}" rel="stylesheet">
