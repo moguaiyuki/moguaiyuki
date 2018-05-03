@@ -18,7 +18,7 @@ class CreateMarketingsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('slug_title');
-            $table->string('content');
+            $table->text('content');
             $table->integer('user_id');
             $table->integer('image_id')->nullable()->index();
             $table->integer('is_published')->comment('0:下書き,1:公開');
