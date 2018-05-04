@@ -1,11 +1,11 @@
 .top-image {
-    background: url('../images/front_image/image1.jpg');
+    background: url('../images/front_image/top1.JPG');
     background-size: cover;
 }
 
 #page-header {
     height: 200px;
-    background: url('../images/front_image/image1.jpg');
+    background: url('../images/front_image/top1.JPG');
     background-position: 0 -360px;
     background-attachment: fixed;
     color: #fff;
