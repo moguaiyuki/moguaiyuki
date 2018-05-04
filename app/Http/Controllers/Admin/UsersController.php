@@ -44,9 +44,11 @@ class UsersController extends BaseController
     {
         $user_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $user_data['image_id'] = $this->imageUpload($file);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
+            $user_data['image_id'] = $image->id;
         }
+
 
         User::create($user_data);
 
@@ -92,8 +94,9 @@ class UsersController extends BaseController
         $user = User::findOrFail($id);
         $user_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $user_data['image_id'] = $this->imageUpload($file);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
+            $user_data['image_id'] = $image->id;
         }
 
         $user->update($user_data);
@@ -113,10 +116,6 @@ class UsersController extends BaseController
     public function destroy($id)
     {
         $user = User::findOrFail($id);
-
-        if ($user->image) {
-            unlink(public_path() . $user->image->path);
-        }
 
         $user->delete();
 

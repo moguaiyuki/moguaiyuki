@@ -9,10 +9,17 @@
         {!! Form::label('name', '名前:') !!}
         {!! Form::text('name', null, ['class'=>'form-control']) !!}
     </div>
-    <div class="form-group">
-        {!! Form::label('image_id', 'アイコン:') !!}
-        {!! Form::file('image_id', null, ['class'=>'form-control']) !!}
+    <!-- laravel file manager -->
+    <div class="input-group">
+        <span class="input-group-btn">
+            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+            <i class="fa fa-picture-o"></i> 画像選択
+            </a>
+        </span>
+        <input id="thumbnail" class="form-control" type="text" name="filepath">
     </div>
+    <img id="holder" style="margin-top:15px;max-height:100px;">
+    <!-- /laravel file manager -->
     <div class="form-group">
         {!! Form::label('email', 'メール:') !!}
         {!! Form::text('email', null, ['class'=>'form-control']) !!}
