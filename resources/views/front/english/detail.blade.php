@@ -1,8 +1,11 @@
 @extends('layouts.front')
 
+@section('title', $english->title)
+
 @section('style')
     <!--TODO:トップとその他のcssファイルを分ける -->
     <link href="{{ asset('css/top.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/article.css') }}" rel="stylesheet">
 @stop
 
 @section('content')
@@ -11,7 +14,7 @@
 
     <!-- Page Content -->
     <section class="py-5">
-        <div class="container">
+        <div class="container article">
 
             <div class="row">
 

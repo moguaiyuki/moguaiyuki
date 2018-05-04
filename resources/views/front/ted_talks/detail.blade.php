@@ -1,8 +1,11 @@
 @extends('layouts.front')
 
+@section('title', $review->talk->title)
+
 @section('style')
     <!--TODO:トップとその他のcssファイルを分ける -->
     <link href="{{ asset('css/top.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/article.css') }}" rel="stylesheet">
 @stop
 
 @section('content')
@@ -11,7 +14,7 @@
 
     <!-- Page Content -->
     <section class="py-5">
-        <div class="container">
+        <div class="container article">
 
             <div class="row">
 
@@ -19,23 +22,23 @@
                 <div class="col-lg-8">
 
                     <!-- Title -->
-                    <h1>{{$talk->title}}</h1>
+                    <h1>{{$review->talk->title}}</h1>
 
                     <!-- Author -->
                     <p class="lead">
-                        by {{$talk->user->name}} <span
-                                class="float-right">{{$talk->created_at->diffForHumans()}}</span>
+                        by {{$review->user->name}} <span
+                                class="float-right">{{$review->created_at->diffForHumans()}}</span>
                     </p>
 
                     <hr>
 
                     <!-- Preview Image -->
-                {{--<img class="img-responsive" width="80%" src="{{$talk->image ? $talk->image->path : ''}}" alt="">--}}
+                {{--<img class="img-responsive" width="80%" src="{{$review->image ? $review->image->path : ''}}" alt="">--}}
 
                 {{--<hr>--}}
 
                 <!-- Post Content -->
-                    <p>{!! $talk->content !!}</p>
+                    <p>{!! $review->content !!}</p>
 
                     <hr>
 

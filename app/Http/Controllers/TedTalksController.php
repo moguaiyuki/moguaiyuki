@@ -42,9 +42,9 @@ class TedTalksController extends Controller
      */
     public function show($slug)
     {
-        $talk = TedReview::whereSlug($slug)->first();
+        $review = TedReview::whereSlug($slug)->first();
 
-        return view('front.ted_talks.detail', compact('talk'));
+        return view('front.ted_talks.detail', compact('review'));
     }
 
     /**

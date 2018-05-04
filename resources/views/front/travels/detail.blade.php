@@ -1,8 +1,11 @@
 @extends('layouts.front')
 
+@section('title', $travel->title)
+
 @section('style')
     <!--TODO:トップとその他のcssファイルを分ける -->
     <link href="{{ asset('css/top.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/article.css') }}" rel="stylesheet">
 @stop
 
 @section('content')
@@ -11,7 +14,7 @@
 
     <!-- Page Content -->
     <section class="py-5">
-        <div class="container">
+        <div class="container article">
 
             <div class="row">
 
@@ -30,9 +33,9 @@
                     <hr>
 
                     <!-- Date/Time -->
-                    <p><span class="glyphicon glyphicon-time"></span>{{$travel->created_at->diffForHumans()}}</p>
+                    {{--<p><span class="glyphicon glyphicon-time"></span>{{$travel->created_at->diffForHumans()}}</p>
 
-                    <hr>
+                    <hr>--}}
 
                     <!-- Preview Image -->
                 {{--<img class="img-responsive" width="80%" src="{{$programing->image ? $programing->image->path : ''}}" alt="">--}}
