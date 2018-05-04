@@ -53,14 +53,15 @@ class BooksController extends BaseController
     {
         $book_data = $request->all();
 
-        if (isset($book_data["image_url"])) {
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
+            $book_data['image_id'] = $image->id;
+        } elseif (isset($book_data["image_url"])) {
             $data = file_get_contents($book_data["image_url"]);
             $image_name = time() . $book_data['title'];
             file_put_contents('images/'. $image_name, $data);
-            $image = Image::create(['path' => $image_name]);
+            $image = Image::create(['path' => '/images/'.$image_name]);
             $book_data['image_id'] = $image->id;
-        } elseif ($file = $request->file('image_id')) {
-            $book_data['image_id'] = $this->imageUpload($file);
         }
 
         $book = Book::create($book_data);
@@ -116,14 +117,9 @@ class BooksController extends BaseController
 
         $book_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $image_name = time() . $file->getClientOriginalName();
-            $file->move('images', $image_name);
-            $image = Image::create(['path' => $image_name]);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
             $book_data['image_id'] = $image->id;
-            if ($book->image) {
-                unlink(public_path() . $book->image->path);
-            }
         }
 
         $book->update($book_data);
@@ -146,10 +142,6 @@ class BooksController extends BaseController
     public function destroy($id)
     {
         $book = Book::findOrFail($id);
-
-        /*if ($book->image) {
-            unlink(public_path() . $book->image->path);
-        }*/
 
         $book->delete();
 

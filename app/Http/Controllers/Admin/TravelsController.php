@@ -47,8 +47,11 @@ class TravelsController extends BaseController
 
         $travel_data['user_id'] = Auth::user()->id;
 
-        if ($file = $request->file('image_id')) {
-            $travel_data['image_id'] = $this->imageUpload($file);
+        $tags_id = [];
+
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
+            $travel_data['image_id'] = $image->id;
         }
 
         if ($tags = $request->name) {
@@ -109,14 +112,9 @@ class TravelsController extends BaseController
 
         $travel_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $image_name = time() . $file->getClientOriginalName();
-            $file->move('images', $image_name);
-            $image = Image::create(['path' => $image_name]);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
             $travel_data['image_id'] = $image->id;
-            if ($travel->image) {
-                unlink(public_path() . $travel->image->path);
-            }
         }
 
         $travel->update($travel_data);
@@ -135,10 +133,6 @@ class TravelsController extends BaseController
     public function destroy($id)
     {
         $travel = Travel::findOrFail($id);
-
-        if ($travel->image) {
-            unlink(public_path() . $travel->image->path);
-        }
 
         $travel->delete();
 

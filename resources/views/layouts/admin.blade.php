@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <meta name="robots" content="noindex,nofollow">
     <meta name="format-detection" content="telephone=no">
-    <meta name="_token" content="{{ csrf_token() }}" />
+    <meta name="_token" content="{{ csrf_token() }}"/>
 
     <title>Admin</title>
 
@@ -95,9 +95,13 @@
 
 <!-- jQuery -->
 <script src="{{asset('js/libs.js')}}"></script>
-
-
+<script src="/vendor/laravel-filemanager/js/lfm.js"></script>
 @yield('scripts')
+<script>
+    {{--var route_prefix = "{{ url(config('lfm.prefix')) }}";--}}
+    // $('#lfm').filemanager('image', {prefix: route_prefix});
+    $('#lfm').filemanager('image');
+</script>
 
 
 </body>

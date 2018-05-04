@@ -44,13 +44,19 @@
                                     {!! Form::hidden('description', $item['volumeInfo']['description'] , ['class'=>'form-control']) !!}
                                 @endif
                                 @if (isset($item['volumeInfo']['imageLinks']))
-                                    {!! Form::hidden('image_url', $item['volumeInfo']['imageLinks']['thumbnail'], ['class'=>'form-control']) !!}
-                                @else
-                                    <div class="form-group">
-                                        {!! Form::label('image_id', '画像:') !!}
-                                        {!! Form::file('image_id', null, ['class'=>'form-control']) !!}
-                                    </div>
+                                {!! Form::hidden('image_url', $item['volumeInfo']['imageLinks']['thumbnail'], ['class'=>'form-control']) !!}
                                 @endif
+                                <!-- laravel file manager -->
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+                                            <i class="fa fa-picture-o"></i> 画像選択
+                                        </a>
+                                    </span>
+                                    <input id="thumbnail" class="form-control" type="text" name="filepath">
+                                </div>
+                                <img id="holder" style="margin-top:15px;max-height:100px;">
+                                <!-- /laravel file manager -->
                                 <div class="form-group">
                                     {!! Form::label('amazon_url', 'URL:') !!}
                                     {!! Form::text('amazon_url', null, ['class'=>'form-control']) !!}
@@ -109,10 +115,17 @@
             {!! Form::label('description', '概要:') !!}
             {!! Form::text('description', null, ['class'=>'form-control']) !!}
         </div>
-        <div class="form-group">
-            {!! Form::label('image_id', '画像:') !!}
-            {!! Form::file('image_id', null, ['class'=>'form-control']) !!}
+        <!-- laravel file manager -->
+        <div class="input-group">
+        <span class="input-group-btn">
+            <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+            <i class="fa fa-picture-o"></i> 画像選択
+            </a>
+        </span>
+            <input id="thumbnail" class="form-control" type="text" name="filepath">
         </div>
+        <img id="holder" style="margin-top:15px;max-height:100px;">
+        <!-- /laravel file manager -->
         <div class="form-group">
             {!! Form::label('amazon_url', 'URL:') !!}
             {!! Form::text('amazon_url', null, ['class'=>'form-control']) !!}

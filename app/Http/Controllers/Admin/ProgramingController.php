@@ -45,8 +45,9 @@ class ProgramingController extends BaseController
     {
         $programing_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $programing_data['image_id'] = $this->imageUpload($file);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
+            $programing_data['image_id'] = $image->id;
         }
 
         $programing_data['user_id'] = Auth::user()->id;
@@ -102,14 +103,9 @@ class ProgramingController extends BaseController
 
         $programing_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $image_name = time() . $file->getClientOriginalName();
-            $file->move('images', $image_name);
-            $image = Image::create(['path' => $image_name]);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
             $programing_data['image_id'] = $image->id;
-            if ($programing->image) {
-                unlink(public_path() . $programing->image->path);
-            }
         }
 
         $programing->update($programing_data);
@@ -129,10 +125,6 @@ class ProgramingController extends BaseController
     public function destroy($id)
     {
         $programing = Programing::findOrFail($id);
-
-        if ($programing->image) {
-            unlink(public_path() . $programing->image->path);
-        }
 
         $programing->delete();
 

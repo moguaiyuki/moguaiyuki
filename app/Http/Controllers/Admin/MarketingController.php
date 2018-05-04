@@ -45,8 +45,9 @@ class MarketingController extends BaseController
     {
         $marketing_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $marketing_data['image_id'] = $this->imageUpload($file);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
+            $marketing_data['image_id'] = $image->id;
         }
 
         $marketing_data['user_id'] = Auth::user()->id;
@@ -102,14 +103,9 @@ class MarketingController extends BaseController
 
         $marketing_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $image_name = time() . $file->getClientOriginalName();
-            $file->move('images', $image_name);
-            $image = Image::create(['path' => $image_name]);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
             $marketing_data['image_id'] = $image->id;
-            if ($marketing->image) {
-                unlink(public_path() . $marketing->image->path);
-            }
         }
 
         $marketing->update($marketing_data);
@@ -128,10 +124,6 @@ class MarketingController extends BaseController
     public function destroy($id)
     {
         $marketing = Marketing::findOrFail($id);
-
-        if ($marketing->image) {
-            unlink(public_path() . $marketing->image->path);
-        }
 
         $marketing->delete();
 
@@ -161,6 +153,7 @@ class MarketingController extends BaseController
         if($request->tag) {
             $marketing->tags()->sync($request->tag);
         }
+
         if ($tags = $request->name) {
             foreach ($tags as $tag) {
                 $new_tag = Tag::create(['name'=>"$tag"]);

@@ -45,8 +45,9 @@ class EnglishController extends BaseController
     {
         $english_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $english_data['image_id'] = $this->imageUpload($file);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
+            $english_data['image_id'] = $image->id;
         }
 
         $english_data['user_id'] = Auth::user()->id;
@@ -102,14 +103,9 @@ class EnglishController extends BaseController
 
         $english_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $image_name = time() . $file->getClientOriginalName();
-            $file->move('images', $image_name);
-            $image = Image::create(['path' => $image_name]);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
             $english_data['image_id'] = $image->id;
-            if ($english->image) {
-                unlink(public_path() . $english->image->path);
-            }
         }
 
         $english->update($english_data);
@@ -129,10 +125,6 @@ class EnglishController extends BaseController
     public function destroy($id)
     {
         $english = English::findOrFail($id);
-
-        if ($english->image) {
-            unlink(public_path() . $english->image->path);
-        }
 
         $english->delete();
 

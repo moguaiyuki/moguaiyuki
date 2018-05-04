@@ -25,7 +25,7 @@
                 <td><img width="50" src="{{$travel->image ? $travel->image->path : ''}}" alt=""></td>
                 <td><a href="{{route('admin.travels.show', $travel->id)}}">{{$travel->title}}</a></td>
                 <td>{{$travel->country}}</td>
-                <td>{{$travel->start_date->format('Y/m/d')}}~{{$travel->end_date->format('Y/m/d')}}</td>
+                <td>{{$travel->start_date ? $travel->start_date->format('Y/m/d') : ""}}~{{$travel->end_date ? $travel->end_date->format('Y/m/d') : ""}}</td>
                 <td>
                     @foreach ($travel->tags as $tag)
                         {{$loop->last ? $tag->name : $tag->name . ','}}

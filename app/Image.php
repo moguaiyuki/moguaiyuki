@@ -10,13 +10,13 @@ class Image extends Model
         'path',
     ];
 
-    protected $uploads_path = "/images/";
+    //protected $uploads_path = "/images/";
 
     /**
     * pathの値取得時にパスを変更して取得
     */
-    public function getPathAttribute($path)
+    /*public function getPathAttribute($path)
     {
         return $this->uploads_path . $path;
-    }
+    }*/
 }

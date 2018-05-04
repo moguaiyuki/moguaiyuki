@@ -45,8 +45,9 @@ class TedTalksController extends BaseController
     {
         $talk_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $talk_data['image_id'] = $this->imageUpload($file);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
+            $talk_data['image_id'] = $image->id;
         }
 
         $talk_data['presented_at'] = Carbon::createFromDate($request->presented_year, $request->presented_month, 1);
@@ -105,15 +106,11 @@ class TedTalksController extends BaseController
 
         $talk_data = $request->all();
 
-        if ($file = $request->file('image_id')) {
-            $image_name = time() . $file->getClientOriginalName();
-            $file->move('images', $image_name);
-            $image = Image::create(['path' => $image_name]);
+        if (isset($request->filepath) && !empty($request->filepath)) {
+            $image = Image::create(['path' => $request->filepath]);
             $talk_data['image_id'] = $image->id;
-            if ($talk->image) {
-                unlink(public_path() . $talk->image->path);
-            }
         }
+
         $talk->update($talk_data);
 
         $this->attachTalkTag($talk, $request);
@@ -134,10 +131,6 @@ class TedTalksController extends BaseController
     public function destroy($id)
     {
         $talk = TedTalk::findOrFail($id);
-
-        if ($talk->image) {
-            unlink(public_path() . $talk->image->path);
-        }
 
         $talk->delete();
 
