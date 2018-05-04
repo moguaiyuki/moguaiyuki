@@ -16,7 +16,7 @@ class TedReview extends Model
     /**
      * TED TALKを取得
      */
-    public function image()
+    public function talk()
     {
         return $this->belongsTo('App\TedTalk');
     }

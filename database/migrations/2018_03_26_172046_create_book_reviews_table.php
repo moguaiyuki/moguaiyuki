@@ -17,7 +17,7 @@ class CreateBookReviewsTable extends Migration
             $table->increments('id');
             $table->integer('book_id')->unsigned()->index();
             $table->string('title')->comment('slug用タイトル');
-            $table->string('content');
+            $table->text('content');
             $table->integer('status')->unsigned()->comment('0:下書き,1:公開');
             $table->integer('user_id');
             $table->string('slug');
