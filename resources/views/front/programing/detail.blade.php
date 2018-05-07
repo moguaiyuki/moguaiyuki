@@ -1,6 +1,12 @@
 @extends('layouts.front')
 
+@section('head_meta')
+@include('includes.adsense')
+@stop
+
 @section('title', $programing->title)
+
+
 
 @section('style')
     <!--TODO:トップとその他のcssファイルを分ける -->
