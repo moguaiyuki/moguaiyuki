@@ -12,7 +12,7 @@
                     <a href="{{route('index')}}" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{route('profile')}}" class="nav-link">About Me</a>
+                    <a href="{{route('about-me')}}" class="nav-link">About Me</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>

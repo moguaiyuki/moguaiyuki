@@ -160,3 +160,7 @@
 .book-item:hover .book-item-overlay {
     opacity: 1;
 }
+
+#about img {
+    margin-top: -50px;
+}

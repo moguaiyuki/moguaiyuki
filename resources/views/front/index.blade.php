@@ -28,7 +28,7 @@
                             {{--<h1 class="display-3">Heading One</h1>--}}
                             <p class="lead">京都の大学院生です。</p>
                             <p class="lead">PHPを使ってサイトを作ったついでにブログを書いています。</p>
-                            <a href="{{route('profile')}}" class="btn btn-info btn-lg">プロフィールはこちら</a>
+                            <a href="{{route('about-me')}}" class="btn btn-info btn-lg">プロフィールはこちら</a>
                         </div>
                     </div>
                 </div>

@@ -21,6 +21,10 @@ Route::get('profile', function(){
     return view('front.profile.index');
 })->name('profile');
 
+Route::get('about-me', function(){
+    return view('front.about_me.index');
+})->name('about-me');
+
 Route::name('programing.')->group(function() {
     Route::get('programing/', 'ProgramingController@index')->name('index');
     Route::get('programing/{slug}', 'ProgramingController@show')->name('show');
