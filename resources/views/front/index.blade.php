@@ -44,7 +44,7 @@
                     <a class="home-icons-link" href="{{route('books.index')}}">
                         <i class="fa fa-book mb-2"></i>
                         <h3>本</h3>
-                        <p>本を読んだらすぐにアウトプットする習慣をつけるために読んだ本のまとめや読みたい本等を個人的にメモしていきます。</p>
+                        <p>読んだ本のまとめや読みたい本等を個人的にメモしていきます。主にマーケティングとかプログラミングとか。ただの自分の電子本棚。</p>
                     </a>
                     <a class="btn btn-dark btn-sm" href="{{route('books.index')}}">記事を見る</a>
                 </div>
