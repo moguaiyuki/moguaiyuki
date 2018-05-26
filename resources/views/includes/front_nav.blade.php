@@ -25,9 +25,9 @@
                         <a class="dropdown-item" href="{{route('travels.index')}}">旅行</a>
                     </div>
                 </li>
-                <li class="nav-item">
+                {{--<li class="nav-item">
                     <a href="contact.html" class="nav-link">Contact</a>
-                </li>
+                </li>--}}
             </ul>
         </div>
     </div>
