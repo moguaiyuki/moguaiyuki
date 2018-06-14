@@ -42,8 +42,8 @@
                     <h3>2-2.職歴</h3>
                     <ul>
                         <li>株式会社セルバ:PHPでwebアプリケーション作成・越境ECマーケティング(2016/8~2018/5)</li>
-                        <li>DeNA:プロダクト開発コース(2018/8)</li>
-                        <li>Wantedly:international teamで二週間勤務(2018/8)</li>
+                        <li>DeNA プロダクト開発コース(2018/8)</li>
+                        <li>Wantedly international expansion courseで二週間勤務(2018/8)</li>
                         <li>メルカリ BOLD INTERNSHIP:アメリカオハイオ州で新規事業立案(2017/11)</li>
                         <li>ファーストリテイリング GLOBAL STUDY PROGRAM:韓国ソウルで戦略立案(2017/2)</li>
                         <li>NRI:テクニカルエンジニアとして二週間勤務(2017/1)</li>
@@ -51,7 +51,7 @@
                     </ul>
                     <h3>2-3.資格</h3>
                     <ul>
-                        <li>TOEIC 900</li>
+                        <li>TOEIC 905</li>
                         <li>応用情報技術者</li>
                         <li>基本情報技術者</li>
                     </ul>
